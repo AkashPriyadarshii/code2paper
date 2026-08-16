@@ -1,6 +1,6 @@
 ---
 name: code2paper
-description: Analyzes any local repository/codebase and synthesizes an academic-grade paper (LaTeX/Typst + PDF). Trigger when user runs /code2paper, asks to convert code to paper, or generate whitepaper/documentation paper.
+description: Analyzes any local repository/codebase and synthesizes an academic-grade paper (LaTeX/Typst/HTML + PDF). Trigger when user runs /code2paper, asks to convert code to paper, or generate whitepaper/documentation paper.
 ---
 
 # code2paper Skill
@@ -10,26 +10,31 @@ Convert a local repository into an academic paper specification.
 ## Usage
 Run `/code2paper [path]` or ask "convert this codebase into a paper".
 
-## Steps
+## Execution Workflow
 
-### Step 0: User Guidance (Beginner Check)
-Before synthesizing the paper, check if the user wants visual interactive codebase learning:
-- Ask/Offer: *"For formal academic paper generation, code2paper will synthesize paper.pdf. If you are a beginner or want visual interactive learning graphs instead, check out [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)."*
+### Step 0: Mandatory Beginner Check & Interactive Guidance
+ALWAYS prompt/check user level before running compilation:
+- **Ask User**: *"Are you looking for formal academic paper specs (`paper.pdf`/`paper.html`), or are you a beginner who wants interactive visual codebase graphs?"*
+- **If Beginner/Visual**: Direct to [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) for interactive node graph visualizations (`npx understand-anything`).
+- **If Academic Spec**: Proceed with Step 1.
 
 ### Step 1: Ingest Repository
-- Run `python code2paper.py [path] --keep-typst` to extract repository file tree and packed source context into `paper.typ`.
+- Execute: `python code2paper.py [path] --keep-typst`
+- Generates base structural context in `paper.typ`, `paper.md`, and `paper.html`.
 
-### Step 2: Deep Semantic Analysis (LLM Pass)
-Read the packed codebase context in `paper.typ` or from `python code2paper.py` output. Extract:
-1. **Abstract**: Problem statement, core approach, implementation highlights.
-2. **System Architecture**: Flowchart diagram (Mermaid/Typst block diagram) of modules.
-3. **Core Modules**: Deep breakdown of key files, functions, classes.
-4. **Mathematical Formalization**: Express main transformation/algorithms using Typst math syntax (e.g. `$ f(x) = \text{Algorithm}(x) $`).
-5. **Trade-offs**: Memory bounds, computational complexity, limitations.
+### Step 2: Semantic LLM Synthesis Pass
+Read packed codebase context from `code2paper.py` output. Synthesize:
+1. **Abstract**: Problem formulation, technical approach, key metrics.
+2. **System Architecture**: ASCII / Mermaid / Typst block topology.
+3. **Core Modules**: Key function, class, and component breakdown.
+4. **Mathematical Formalization**: Formal state transitions, algorithmic complexity, data transformation equations ($f(x) = \text{Transform}(x)$).
+5. **Implementation Trade-offs**: Memory bounds, limitations, future roadmap.
 
-### Step 3: Write Typst Paper
-Overwrite `paper.typ` with the full, rich Typst academic markup (using cross-platform fonts like `"Times New Roman", "Liberation Serif", "Arial"`).
+### Step 3: Write Output Formats
+1. Overwrite `paper.typ` with formal Typst academic syntax.
+2. Overwrite `paper.html` with self-contained interactive WebPaper (includes MathJax + zero-CLI print-to-PDF layout).
+3. Overwrite `paper.md` with GitHub-flavored Markdown specification.
 
-### Step 4: Compile PDF
-Run `typst compile paper.typ paper.pdf` to produce the final academic PDF.
-If `typst` is not installed, output `paper.md` or instruct the user to view `paper.typ`.
+### Step 4: Compile / Output
+- If `typst` CLI is available: execute `typst compile paper.typ paper.pdf` to emit PDF.
+- If `typst` CLI is NOT available: inform user that `paper.html` (WebPaper) is ready for direct browser viewing/printing without installing CLI tools.

@@ -11,7 +11,7 @@ import subprocess
 import shutil
 from pathlib import Path
 
-DEFAULT_TYPST_TEMPLATE = """#set page(
+DEFAULT_TYPST_TEMPLATE = r"""#set page(
   paper: "us-letter",
   margin: (x: 1.8cm, y: 2.2cm),
   header: align(right)[
@@ -25,9 +25,9 @@ DEFAULT_TYPST_TEMPLATE = """#set page(
 
 #align(center)[
   #block(width: 100%)[
-    #text(18pt, weight: "bold")[ {title} ] \ \
+    #text(18pt, weight: "bold")[ {title} ] \
     #v(4pt)
-    #text(11pt, style: "italic")[ An Automated Architectural Analysis and Specification ] \ \
+    #text(11pt, style: "italic")[ An Automated Architectural Analysis and Specification ] \
     #v(8pt)
     #text(10pt)[ *Generated via code2paper* ]
   ]
@@ -132,6 +132,125 @@ def generate_paper_source(repo_path: Path, packed_code: str, title: str) -> str:
         tradeoffs=tradeoffs
     )
 
+def generate_html_paper_source(repo_path: Path, packed_code: str, title: str) -> str:
+    """Generate standalone interactive HTML WebPaper (WebPDF fallback when typst is missing)."""
+    lines = packed_code.splitlines()
+    files_found = [line.replace("--- File: ", "").strip() for line in lines if line.startswith("--- File: ")]
+
+    file_list_html = "".join([f"<li><code>{f}</code></li>" for f in files_found[:15]])
+    tree_html = "\n".join([f"├── {f}" for f in files_found[:20]])
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} -- Academic Specification (WebPaper)</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    :root {{
+      --bg: #f4f5f7;
+      --paper: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+    }}
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Times New Roman', Times, serif, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }}
+    .paper {{
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--paper);
+      padding: 60px 80px;
+      border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }}
+    h1 {{
+      font-size: 22pt;
+      text-align: center;
+      margin-bottom: 4px;
+    }}
+    .subtitle {{
+      text-align: center;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 11pt;
+      margin-bottom: 24px;
+    }}
+    .abstract {{
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      margin: 24px 0;
+      font-size: 10pt;
+    }}
+    h2 {{
+      font-size: 14pt;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-top: 32px;
+      color: #0f172a;
+    }}
+    pre {{
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 9.5pt;
+      overflow-x: auto;
+    }}
+    .math-block {{
+      background: #f8fafc;
+      padding: 12px;
+      text-align: center;
+      font-size: 12pt;
+      border-radius: 4px;
+      margin: 16px 0;
+    }}
+    @media print {{
+      body {{ background: #fff; padding: 0; }}
+      .paper {{ box-shadow: none; border: none; padding: 0; max-width: 100%; }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <h1>{title}</h1>
+    <div class="subtitle">An Automated Architectural Analysis & Specification (WebPaper)</div>
+    <div class="abstract">
+      <strong>Abstract</strong> -- This document presents the architectural topology, module dependencies, and algorithmic formalization of <code>{repo_path.name}</code>. Generated automatically via code2paper WebPaper engine.
+    </div>
+
+    <h2>1. System Overview</h2>
+    <p>Repository comprises {len(lines)} lines across {len(files_found)} key source modules:</p>
+    <ul>{file_list_html}</ul>
+
+    <h2>2. Architecture Tree</h2>
+    <pre>{tree_html}</pre>
+
+    <h2>3. Core Modules & Formalization</h2>
+    <div class="math-block">
+      \\[ f(x) = \\text{{Transform}}(x) \\quad \\text{{where }} x \\in \\mathcal{{D}}_{{\\text{{codebase}}}} \\]
+    </div>
+
+    <h2>4. Implementation Trade-offs</h2>
+    <ol>
+      <li>Zero-CLI WebPaper rendering via browser print (Ctrl+P).</li>
+      <li>AST packaging bound by stdlib memory capacity.</li>
+    </ol>
+  </div>
+</body>
+</html>"""
+
 def main():
     parser = argparse.ArgumentParser(description="Convert any codebase into an academic paper (Typst/PDF).")
     parser.add_argument("repo", nargs="?", default=".", help="Path to codebase repository")
@@ -154,6 +273,12 @@ def main():
     typst_path = repo_path / "paper.typ"
     typst_path.write_text(typst_code, encoding="utf-8")
     print(f"[code2paper] Generated Typst source: {typst_path}")
+
+    # Always generate interactive HTML WebPaper fallback
+    html_code = generate_html_paper_source(repo_path, packed, title)
+    html_path = repo_path / "paper.html"
+    html_path.write_text(html_code, encoding="utf-8")
+    print(f"[code2paper] Generated Interactive WebPaper: {html_path}")
 
     typst_bin = shutil.which("typst")
     if typst_bin:
