@@ -1,13 +1,20 @@
 # Design & Style Specification: code2paper
 
-## Output Formats
-- **Primary Engine**: Typst (`paper.typ` → `paper.pdf`).
-- **Secondary Engines**: LaTeX (`paper.tex`), HTML WebPaper (`paper.html`), GitHub-Flavored Markdown (`paper.md`).
+## Primary Product
+A universal agent skill (`skills/code2paper.md`) — self-contained, works in any AI agent,
+no CLI, no install.
+
+## Outputs
+- **Primary**: `human-guide.md` (plain-language, beginners & vibecoders).
+- **Secondary**: `paper.md` (GFM spec), `paper.typ` (Typst), `paper.tex` (LaTeX),
+  `paper.html` (WebPaper with MathJax).
 
 ## Analysis Model
-- Python modules: stdlib `ast` parsing for functions, classes, imports, and cyclomatic complexity.
-- Other languages: regex heuristics for function/class inventory and control-flow complexity.
-- Dependency graph from internal Python imports.
+- Agent reads actual source: entrypoints, dependency hubs, top-LOC modules.
+- 100+ language support (2026 ecosystem): import syntax, entrypoint conventions,
+  function/class detection.
+- Metrics measured, never invented: files, LOC, cyclomatic complexity, dependency edges.
+- Foundation-first reading order derived from the real dependency graph.
 
 ## Paper Layout Specification
 - Single-column US Letter layout (Typst default; LaTeX `article` class).
@@ -18,3 +25,7 @@
   4. Core Module Specifications (per-module LOC, complexity, functions, classes)
   5. Mathematical Formalization & Data Flow (measured LOC/complexity/dependency equations)
   6. Implementation Trade-offs & Limitations
+
+## Design Principles
+- Honesty: unverified claims are labeled "not verified". No invented numbers.
+- Never generic: every section quotes real identifiers from the actual code.

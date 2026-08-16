@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Metadata -->
-  <title>code2paper — Academic Paper Generator for Software Repositories</title>
-  <meta name="title" content="code2paper — Academic Paper Generator for Software Repositories">
-  <meta name="description" content="Python stdlib CLI & native Claude Code Agent Skill. Formats software codebases into academic paper specifications in Typst, LaTeX, Markdown, PDF, and zero-CLI WebPaper HTML.">
-  <meta name="keywords" content="code2paper, paper2code, code to paper, typst, latex, codebase to paper, software architecture specification, repomix, claude code skill, developer tools, pdf generator">
+  <title>code2paper — Understand Any Repository, For Every Developer</title>
+  <meta name="title" content="code2paper — Understand Any Repository, For Every Developer">
+  <meta name="description" content="Universal AI agent skill that understands ANY repository — any language, any size. Reads real code and produces a plain-language guide for beginners plus a formal academic paper (Typst, LaTeX, Markdown, WebPaper) for architects. Works in Claude Code, OpenCode, Codex, Gemini CLI.">
+  <meta name="keywords" content="code2paper, understand repo, understand codebase, code to paper, repo walkthrough, codebase onboarding, typst, latex, agent skill, claude code skill, developer tools">
   <meta name="author" content="Akash Priyadarshi">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://akashpriyadarshii.github.io/code2paper/">
@@ -17,16 +17,19 @@
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://akashpriyadarshii.github.io/code2paper/">
-  <meta property="og:title" content="code2paper — Academic Paper Generator for Software Repositories">
-  <meta property="og:description" content="Format software codebases into formal academic paper specifications in Typst, LaTeX, PDF, and WebPaper HTML.">
+  <meta property="og:title" content="code2paper — Understand Any Repository, For Every Developer">
+  <meta property="og:description" content="Universal AI agent skill that understands ANY repository. Plain-language guide for beginners, formal academic paper for architects. 100+ languages.">
   <meta property="og:image" content="https://akashpriyadarshii.github.io/code2paper/og-image.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://akashpriyadarshii.github.io/code2paper/">
-  <meta property="twitter:title" content="code2paper — Academic Paper Generator for Software Repositories">
-  <meta property="twitter:description" content="Format software codebases into formal academic paper specifications in Typst, LaTeX, PDF, and WebPaper HTML.">
+  <meta property="twitter:title" content="code2paper — Understand Any Repository, For Every Developer">
+  <meta property="twitter:description" content="Universal AI agent skill that understands ANY repository. Plain-language guide for beginners, formal academic paper for architects. 100+ languages.">
   <meta property="twitter:image" content="https://akashpriyadarshii.github.io/code2paper/og-image.png">
+
+  <!-- JSON-LD -->
+  
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
@@ -38,19 +41,18 @@
         "name": "code2paper",
         "operatingSystem": "Cross-platform (Windows, macOS, Linux)",
         "applicationCategory": "DeveloperApplication",
-        "programmingLanguage": "Python",
         "downloadUrl": "https://github.com/AkashPriyadarshii/code2paper",
         "author": {
           "@type": "Person",
           "name": "Akash Priyadarshi",
           "url": "https://github.com/AkashPriyadarshii"
         },
-        "description": "Format software codebases into formal academic paper specifications in Typst, LaTeX, PDF, and WebPaper HTML."
+        "description": "Universal AI agent skill that understands ANY repository: plain-language guide for beginners, formal academic paper for architects, 100+ languages."
       },
       {
         "@type": "WebPage",
         "url": "https://akashpriyadarshii.github.io/code2paper/",
-        "name": "code2paper -- Academic Paper Generator for Software Repositories"
+        "name": "code2paper -- Understand Any Repository, For Every Developer"
       }
     ]
   }
@@ -673,6 +675,36 @@
       max-width: 62ch;
     }
 
+    /* Live examples section */
+    .examples {
+      margin: clamp(48px, 8vw, 90px) 0;
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      gap: clamp(32px, 6vw, 96px);
+      align-items: start;
+    }
+    .examples-head { position: sticky; top: 32px; }
+    .example-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px;
+      border-left: 3px solid var(--accent);
+    }
+    .example-top {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
+    }
+    .example-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; margin-bottom: 8px; }
+    .example-card h3 a { color: var(--text); text-decoration: none; border-bottom: 1px solid transparent; }
+    .example-card h3 a:hover { color: var(--accent-strong); border-bottom-color: var(--accent); }
+    .example-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; max-width: 62ch; }
+    .example-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    @media (max-width: 960px) {
+      .examples { grid-template-columns: 1fr; }
+      .examples-head { position: static; }
+    }
+
     /* Terminal quickstart strip */
     .command-box {
       background: var(--panel);
@@ -800,10 +832,10 @@
     <main id="main">
       <section class="hero">
         <div>
-          <div class="meta-eyebrow">Stdlib Python CLI &bull; Claude Agent Skill</div>
-          <h1>Turn any codebase into an <em>academic paper</em>.</h1>
+          <div class="meta-eyebrow">Universal Agent Skill &bull; Any Language &bull; 100+ Languages</div>
+          <h1>Understand any codebase, <em>for every developer</em>.</h1>
           <p class="hero-desc">
-            Extract structural topology, class hierarchies, and mathematical formalizations from software repositories. Produces Typst, LaTeX, Markdown, PDF, and zero-CLI WebPaper HTML.
+            Reads real code and produces a plain-language guide for beginners plus a formal academic paper for architects. Works in Claude Code, OpenCode, Codex, Gemini CLI, and Cursor. No install, no CLI.
           </p>
           <div class="cta-row">
             <a href="https://github.com/AkashPriyadarshii/code2paper" class="btn-action btn-primary" target="_blank" rel="noopener">
@@ -817,11 +849,11 @@
         <aside class="specs reveal" aria-label="System specification">
           <div class="specs-title">System Specification</div>
           <dl>
-            <div class="spec-row"><dt>Engine</dt><dd>Python 3.10+ Stdlib</dd></div>
+            <div class="spec-row"><dt>Engine</dt><dd>AI Agent Skill</dd></div>
             <div class="spec-row"><dt>Skill Trigger</dt><dd>/code2paper [path]</dd></div>
             <div class="spec-row"><dt>Outputs</dt><dd>.typ / .tex / .html / .md</dd></div>
-            <div class="spec-row"><dt>Analysis</dt><dd>AST + Dependency Graph</dd></div>
-            <div class="spec-row"><dt>Dependencies</dt><dd>Zero External Packages</dd></div>
+            <div class="spec-row"><dt>Languages</dt><dd>100+ (2026)</dd></div>
+            <div class="spec-row"><dt>Dependencies</dt><dd>Zero — No Install</dd></div>
           </dl>
           <span class="proof-stamp" aria-hidden="true">Approved &mdash; Generated</span>
         </aside>
@@ -888,7 +920,7 @@
                     \[ f(x) = \text{Transform}(x) \quad \text{where } x \in \mathcal{D}_{\text{codebase}} \]
                   </div>
                   <div class="paper-heading-2">3. Component Specifications</div>
-                  <p>&bull; <code>code2paper.py</code>: Stdlib Python CLI parser.<br>&bull; <code>skills/code2paper.md</code>: Claude Agent Skill.</p>
+                  <p>&bull; <code>skills/code2paper.md</code>: universal agent skill.<br>&bull; <code>human-guide.md</code>: plain-language walkthrough for beginners.</p>
                 </div>
                 <div class="raw-code-box" id="rawSource"></div>
               </div>
@@ -905,33 +937,55 @@
         </div>
         <div class="feature-list reveal">
           <a class="feature-item" href="https://github.com/AkashPriyadarshii/code2paper" target="_blank" rel="noopener">
-            <span class="feature-num">01 / STDLIB</span>
+            <span class="feature-num">01 / UNIVERSAL</span>
             <div>
-              <h3>Standard Library First</h3>
-              <p>Built exclusively with Python stdlib. Zero heavy pip dependencies, zero complex setup.</p>
+              <h3>Works in Any Agent</h3>
+              <p>Claude Code, OpenCode, Codex, Gemini CLI, Cursor — one skill file, zero install, zero dependencies. Any repo, any language, any size.</p>
             </div>
           </a>
           <a class="feature-item" href="https://github.com/AkashPriyadarshii/code2paper" target="_blank" rel="noopener">
-            <span class="feature-num">02 / ANALYSIS</span>
+            <span class="feature-num">02 / REAL READING</span>
             <div>
-              <h3>Real AST + Dependency Graph</h3>
-              <p>Python modules parsed via stdlib AST for functions, classes, imports, and cyclomatic complexity; internal dependency edges extracted automatically.</p>
+              <h3>Reads the Code, Never Guesses</h3>
+              <p>Entrypoints, dependency hubs, and top-LOC modules are read directly. Metrics (files, LOC, complexity, dependency edges) are measured, not invented. Unverified = labeled.</p>
             </div>
           </a>
           <a class="feature-item" href="https://github.com/Egonex-AI/Understand-Anything" target="_blank" rel="noopener">
-            <span class="feature-num">03 / ZERO-CLI</span>
+            <span class="feature-num">03 / TWO ARTIFACTS</span>
             <div>
-              <h3>WebPaper &amp; Agent Skill</h3>
-              <p>Self-contained HTML specs with embedded MathJax. Print to PDF from any browser, or drive it as a /code2paper Claude agent skill.</p>
+              <h3>Guide + Paper for Every Level</h3>
+              <p>Plain-language human-guide.md for beginners &amp; vibecoders; formal paper.typ/tex/html/md for architects. MathJax WebPaper prints to PDF from any browser.</p>
             </div>
           </a>
+        </div>
+      </section>
+
+      <section class="examples">
+        <div class="examples-head reveal">
+          <div class="section-eyebrow">See It Live</div>
+          <h2 class="section-headline">A real repo, end to end</h2>
+          <p class="section-subtitle">The code2paper skill applied to a real 9-file repo — results, not promises.</p>
+        </div>
+        <div class="example-card reveal">
+          <div class="example-top">
+            <span class="feature-num">NEET CBT 2027 &mdash; MARKETING SITE</span>
+            <span class="version-chip">9 files &middot; ~455 LOC &middot; static HTML</span>
+          </div>
+          <h3><a href="https://github.com/AkashPriyadarshii/neet-cbt-site" target="_blank" rel="noopener">AkashPriyadarshii/neet-cbt-site</a></h3>
+          <p class="example-desc">The landing page for a NEET computer-based-test simulator. Single-file HTML, zero build step, GitHub Pages.</p>
+          <div class="example-links">
+            <a class="btn-action btn-secondary" href="https://github.com/AkashPriyadarshii/code2paper/blob/main/examples/neet-cbt-site/human-guide.md" target="_blank" rel="noopener">Beginner guide</a>
+            <a class="btn-action btn-secondary" href="https://github.com/AkashPriyadarshii/code2paper/blob/main/examples/neet-cbt-site/paper.md" target="_blank" rel="noopener">Formal paper</a>
+            <a class="btn-action btn-secondary" href="https://github.com/AkashPriyadarshii/code2paper/blob/main/examples/neet-cbt-site/paper.html" target="_blank" rel="noopener">WebPaper</a>
+            <a class="btn-action btn-secondary" href="https://github.com/AkashPriyadarshii/code2paper/raw/main/examples/neet-cbt-site/paper.pdf" target="_blank" rel="noopener">PDF</a>
+          </div>
         </div>
       </section>
 
       <div class="command-box">
         <div>
           <div class="command-meta">Quickstart</div>
-          <div class="command-code" id="cmdSnippet">git clone https://github.com/AkashPriyadarshii/code2paper.git && cd code2paper && python code2paper.py .</div>
+          <div class="command-code" id="cmdSnippet">git clone https://github.com/AkashPriyadarshii/code2paper.git && cd code2paper && cp skills/code2paper.md ~/.claude/skills/code2paper/SKILL.md</div>
         </div>
         <button class="btn-action btn-secondary" onclick="copySnippet()">Copy Command</button>
       </div>
@@ -1047,7 +1101,7 @@
           <h2>2. Mathematical Formalization</h2>
           <div class="math">\\[ ${m} \\]</div>
           <h2>3. Component Specifications</h2>
-          <p>&bull; code2paper.py: Stdlib Python CLI parser.<br>&bull; skills/code2paper.md: Claude Agent Skill.</p>
+          <p>&bull; skills/code2paper.md: universal agent skill.<br>&bull; human-guide.md: plain-language walkthrough.</p>
           <script>
             window.onload = function() {
               setTimeout(() => { window.print(); }, 800);

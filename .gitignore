@@ -13,8 +13,10 @@ __pycache__/
 venv/
 env/
 
-# Generated paper artifacts (regenerate via `python code2paper.py .`)
+# Generated paper artifacts
 paper.pdf
 build/
 dist/
+
+# Local agent tooling
 .gstack/

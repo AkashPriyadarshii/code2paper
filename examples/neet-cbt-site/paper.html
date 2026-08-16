@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEET CBT 2027 Simulator — Marketing Site: Academic Specification (WebPaper)</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    :root { --bg:#f4f5f7; --paper:#ffffff; --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --accent:#e8582c; --node:#2563eb; --node-file:#0f172a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: Georgia, 'Times New Roman', serif; line-height: 1.65; padding: 40px 20px; }
+    .paper { max-width: 900px; margin: 0 auto; background: var(--paper); padding: 56px 72px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+    h1 { font-size: 22pt; text-align: center; margin-bottom: 4px; }
+    .subtitle { text-align: center; font-style: italic; color: var(--muted); font-size: 11pt; margin-bottom: 24px; }
+    .abstract { background: #f8fafc; border-left: 4px solid var(--accent); padding: 16px; margin: 24px 0; font-size: 10pt; }
+    h2 { font-size: 14pt; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 32px; color: #0f172a; }
+    h3 { font-size: 12pt; margin-top: 20px; color: #0f172a; }
+    table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 10pt; }
+    td, th { border: 1px solid var(--border); padding: 7px 12px; text-align: left; }
+    th { background: #f8fafc; }
+    code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.85em; background: #f1f5f9; padding: 1px 5px; border-radius: 3px; }
+    pre { background: #f8fafc; border: 1px solid var(--border); padding: 14px; border-radius: 6px; font-size: 9.5pt; overflow-x: auto; font-family: 'JetBrains Mono', monospace; }
+    .math-block { background: #f8fafc; padding: 12px; text-align: center; font-size: 12pt; border-radius: 4px; margin: 14px 0; }
+    ul, ol { margin: 8px 0 8px 24px; font-size: 10.5pt; }
+    li { margin-bottom: 4px; }
+    p { font-size: 10.5pt; margin: 8px 0; }
+    .graph-wrap { position: relative; border: 1px solid var(--border); border-radius: 8px; background: #0f172a; overflow: hidden; margin: 16px 0; }
+    #graph { width: 100%; height: 460px; display: block; }
+    .graph-legend { position: absolute; top: 10px; left: 10px; background: rgba(15,23,42,0.85); color: #e2e8f0; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 8px 10px; border-radius: 6px; line-height: 1.7; }
+    .graph-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+    .graph-hint { position: absolute; bottom: 10px; right: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; font-size: 9px; }
+    .node-label { font-family: 'JetBrains Mono', monospace; }
+    @media print { body { background: #fff; padding: 0; } .paper { box-shadow: none; border: none; padding: 0; max-width: 100%; } }
+    @media (max-width: 700px) { .paper { padding: 28px 20px; } #graph { height: 380px; } }
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <h1>NEET CBT 2027 Simulator — Marketing Site</h1>
+    <div class="subtitle">Academic Specification &mdash; Automated Architectural Analysis via code2paper</div>
+    <div class="abstract">
+      <strong>Abstract</strong> &mdash; The repository hosts the static marketing site for the NEET CBT 2027
+      Simulator, a free, offline-first progressive web application that replicates the National Testing
+      Agency (NTA) computer-based test interface for the NEET UG medical entrance examination. The site is a
+      single-file HTML document (423 lines, 23.5 KB) with embedded CSS and JSON-LD structured data, deployed
+      via GitHub Pages with no build pipeline. The repository contains 9 files across HTML, Markdown, XML,
+      plain-text, and raster image assets; source lines total approximately 455.
+    </div>
+
+    <h2>1. System Overview</h2>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Total files</td><td>9</td></tr>
+      <tr><td>Text files</td><td>4 (index.html, README.md, robots.txt, sitemap.xml)</td></tr>
+      <tr><td>Image assets</td><td>5 (.webp screenshots, og-cover.png)</td></tr>
+      <tr><td>Source lines (text)</td><td>~455</td></tr>
+      <tr><td>Build step</td><td>None (static)</td></tr>
+      <tr><td>Hosting</td><td>GitHub Pages (autodeploy on push)</td></tr>
+      <tr><td>Dependencies</td><td>Zero</td></tr>
+    </table>
+    <p>Language breakdown: HTML (index.html, 423 lines), Markdown (README, 17 lines), XML (sitemap.xml,
+    9 lines), plain text (robots.txt).</p>
+
+    <h2>2. Architecture &amp; Component Structure</h2>
+    <p>The site is a linear one-page document. The dependency graph below is interactive — drag nodes,
+    hover to highlight connections. It maps every file to what it references, including the external
+    simulator app.</p>
+
+    <div class="graph-wrap">
+      <canvas id="graph" aria-label="Interactive dependency graph of the neet-cbt-site repository"></canvas>
+      <div class="graph-legend">
+        <i style="background:#2563eb"></i>entrypoint (index.html)<br>
+        <i style="background:#34d399"></i>asset / config<br>
+        <i style="background:#f59e0b"></i>external app (neet-cbt.vercel.app)<br>
+        <i style="background:#64748b"></i>edge = reference / link
+      </div>
+      <div class="graph-hint">drag to move &middot; scroll to zoom &middot; hover to trace</div>
+    </div>
+
+    <h3>Structural layout</h3>
+    <pre>index.html
+├── &lt;head&gt;
+│   ├── primary/OG/Twitter meta + &lt;style&gt; design system
+├── &lt;body&gt;
+│   ├── .topbar      — announcement strip ("CBT begins 2027")
+│   ├── header.main  — brand + nav (Why/Features/How/FAQ anchors)
+│   ├── .hero        — headline, lead, dual CTA, stats badges, CSS mock-UI
+│   ├── #why         — 4-card rationale grid
+│   ├── #features    — 6-feature grid (NTA interface, timer, PWA, PYQ, privacy)
+│   ├── #how         — 3-step + 4-screenshot gallery
+│   ├── #faq         — 6-item &lt;details&gt; disclosure
+│   └── footer       — links + NTA trademark disclaimer
+└── 3 × JSON-LD blocks — WebApplication, FAQPage, BreadcrumbList</pre>
+
+    <h3>Dependency edges</h3>
+    <ul>
+      <li><code>index.html</code> &rarr; <code>testneetscreen.webp</code>, <code>homecbt.webp</code>, <code>login.webp</code>, <code>scorecbt.webp</code> (gallery, lazy-loaded)</li>
+      <li><code>index.html</code> &rarr; <code>og-cover.png</code> (social meta)</li>
+      <li><code>index.html</code> &rarr; <code>neet-cbt.vercel.app</code> (external simulator app, 2 CTAs + footer)</li>
+      <li><code>robots.txt</code> &rarr; <code>sitemap.xml</code></li>
+    </ul>
+
+    <h2>3. Core Module Specifications</h2>
+    <h3>index.html — single-file landing page</h3>
+    <ul>
+      <li><strong>Role:</strong> the entire marketing site.</li>
+      <li><strong>Design system:</strong> CSS custom properties in <code>:root</code> (navy, accent gold, blue, paper), responsive at 820px.</li>
+      <li><strong>CTA strategy:</strong> two "Launch the Simulator" buttons funnel to the app; "Why the change?" scroll anchor.</li>
+      <li><strong>Trust architecture:</strong> stat badges, six FAQ disclosures, non-affiliation disclaimer.</li>
+      <li><strong>SEO:</strong> descriptive meta, OG + Twitter cards, canonical, three JSON-LD entities, theme-color.</li>
+    </ul>
+    <h3>README.md</h3>
+    <p>Confirms GitHub Pages hosting and image conventions (WebP at 2048&times;3640).</p>
+    <h3>robots.txt / sitemap.xml</h3>
+    <p>Allow all crawlers; sitemap with monthly change frequency, dated 2026-08-10.</p>
+
+    <h2>4. Mathematical Formalization &amp; Data Flow</h2>
+    <p>Let <em>F</em> be the set of files and &ell;(<em>f</em>) the line count of file <em>f</em>.</p>
+    <div class="math-block">\[ L_{\text{total}} = \sum_{f \in F} \ell(f) = 423 + 17 + 9 + 5 \approx 455 \]</div>
+    <p>Asset size footprint (bytes):</p>
+    <div class="math-block">\[ S = 23{,}479 + 86{,}034 + 70{,}260 + 82{,}508 + 71{,}064 + 330{,}486 \approx 664\text{ KB} \]</div>
+    <p>Data flow is unidirectional and static: the browser fetches <code>index.html</code> plus lazily-loaded
+    gallery images; JSON-LD blocks are parsed by crawlers, not executed. No runtime computation occurs here.</p>
+
+    <h2>5. Implementation Trade-offs &amp; Limitations</h2>
+    <ol>
+      <li><strong>Single-file simplicity vs. maintainability:</strong> zero build, zero deps, at the cost of a 423-line file.</li>
+      <li><strong>Isolation from the product:</strong> marketing site and simulator are separate repos.</li>
+      <li><strong>Static screenshots:</strong> WebP captures cannot reflect future UI changes automatically.</li>
+      <li><strong>Scope:</strong> no test suite or CI beyond Pages autodeploy; appropriate for a static page.</li>
+    </ol>
+  </div>
+
+  <script>
+    // Interactive force-directed dependency graph (vanilla JS, zero deps)
+    (function () {
+      var canvas = document.getElementById('graph');
+      var ctx = canvas.getContext('2d');
+      var W, H, dpr;
+
+      var nodes = [
+        { id: 'index.html', r: 34, color: '#2563eb', x: 0, y: 0, label: 'index.html' },
+        { id: 'README.md', r: 22, color: '#34d399', x: 0, y: 0, label: 'README.md' },
+        { id: 'robots.txt', r: 20, color: '#34d399', x: 0, y: 0, label: 'robots.txt' },
+        { id: 'sitemap.xml', r: 20, color: '#34d399', x: 0, y: 0, label: 'sitemap.xml' },
+        { id: 'og-cover.png', r: 18, color: '#34d399', x: 0, y: 0, label: 'og-cover.png' },
+        { id: 'testneetscreen.webp', r: 18, color: '#34d399', x: 0, y: 0, label: 'testneetscreen.webp' },
+        { id: 'homecbt.webp', r: 18, color: '#34d399', x: 0, y: 0, label: 'homecbt.webp' },
+        { id: 'login.webp', r: 18, color: '#34d399', x: 0, y: 0, label: 'login.webp' },
+        { id: 'scorecbt.webp', r: 18, color: '#34d399', x: 0, y: 0, label: 'scorecbt.webp' },
+        { id: 'neet-cbt.vercel.app', r: 30, color: '#f59e0b', x: 0, y: 0, label: 'neet-cbt.vercel.app', external: true }
+      ];
+      var edges = [
+        ['index.html', 'og-cover.png'], ['index.html', 'testneetscreen.webp'],
+        ['index.html', 'homecbt.webp'], ['index.html', 'login.webp'],
+        ['index.html', 'scorecbt.webp'], ['index.html', 'neet-cbt.vercel.app'],
+        ['robots.txt', 'sitemap.xml']
+      ];
+      var byId = {}; nodes.forEach(function (n) { byId[n.id] = n; });
+      var adj = {}; nodes.forEach(function (n) { adj[n.id] = []; });
+      edges.forEach(function (e) { adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+
+      // Simulated annealing initial positions (hub-center layout)
+      var radius = 170, i = 0;
+      var nonHub = nodes.filter(function (n) { return n.id !== 'index.html'; });
+      nonHub.forEach(function (n) {
+        var a = (i / nonHub.length) * Math.PI * 2;
+        n.tx = Math.cos(a) * radius; n.ty = Math.sin(a) * radius; i++;
+      });
+      byId['index.html'].tx = 0; byId['index.html'].ty = 0;
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        var rect = canvas.getBoundingClientRect();
+        W = rect.width; H = rect.height;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resize); resize();
+
+      var hover = null, dragging = null, ox = 0, oy = 0, scale = 1, panX = W / 2, panY = H / 2;
+
+      function world(e) {
+        var r = canvas.getBoundingClientRect();
+        return { x: (e.clientX - r.left - panX) / scale, y: (e.clientY - r.top - panY) / scale };
+      }
+      function hit(p) {
+        for (var k = nodes.length - 1; k >= 0; k--) {
+          var n = nodes[k];
+          var dx = n.x - p.x, dy = n.y - p.y;
+          if (dx * dx + dy * dy < (n.r + 8) * (n.r + 8)) return n;
+        }
+        return null;
+      }
+
+      canvas.addEventListener('pointermove', function (e) {
+        if (dragging) { var w = world(e); dragging.x = w.x; dragging.y = w.y; return; }
+        hover = hit(world(e));
+      });
+      canvas.addEventListener('pointerdown', function (e) {
+        var n = hit(world(e)); if (n) { dragging = n; canvas.setPointerCapture(e.pointerId); }
+      });
+      canvas.addEventListener('pointerup', function () { dragging = null; });
+      canvas.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        scale *= e.deltaY < 0 ? 1.1 : 0.9; scale = Math.max(0.4, Math.min(2.5, scale));
+      }, { passive: false });
+
+      var TAU = Math.PI * 2;
+      function tick() {
+        // gentle convergence toward target + repulsion + edge springs
+        nodes.forEach(function (a) {
+          nodes.forEach(function (b) {
+            if (a === b) return;
+            var dx = a.x - b.x, dy = a.y - b.y;
+            var d2 = dx * dx + dy * dy || 1;
+            var d = Math.sqrt(d2);
+            var min = a.r + b.r + 40;
+            if (d < min) { var f = (min - d) * 0.04; a.x += dx / d * f; a.y += dy / d * f; }
+          });
+          a.x += (a.tx - a.x) * 0.03;
+          a.y += (a.ty - a.y) * 0.03;
+          a.x += (0 - a.x) * 0.002; a.y += (0 - a.y) * 0.002;
+        });
+        edges.forEach(function (e) {
+          var a = byId[e[0]], b = byId[e[1]];
+          var dx = b.x - a.x, dy = b.y - a.y;
+          var d = Math.sqrt(dx * dx + dy * dy) || 1;
+          var f = (d - 130) * 0.02;
+          a.x += dx / d * f; a.y += dy / d * f;
+          b.x -= dx / d * f; b.y -= dy / d * f;
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+        ctx.translate(panX, panY); ctx.scale(scale, scale);
+
+        edges.forEach(function (e) {
+          var a = byId[e[0]], b = byId[e[1]];
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          var hot = hover && (e[0] === hover.id || e[1] === hover.id);
+          ctx.strokeStyle = hot ? 'rgba(232,88,44,0.9)' : 'rgba(100,116,139,0.45)';
+          ctx.lineWidth = hot ? 2.5 : 1.2;
+          ctx.stroke();
+        });
+
+        nodes.forEach(function (n) {
+          var hot = hover && (n.id === hover.id || adj[n.id].indexOf(hover.id) >= 0);
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, TAU);
+          ctx.fillStyle = hot ? '#e8582c' : n.color;
+          ctx.globalAlpha = hot ? 1 : 0.92;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+          ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+          ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '600 10px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          var label = n.label;
+          if (label.length > 16) label = label.slice(0, 14) + '…';
+          ctx.fillText(label, n.x, n.y);
+        });
+        ctx.restore();
+      }
+
+      function loop() { tick(); draw(); requestAnimationFrame(loop); }
+      loop();
+    })();
+  </script>
+</body>
+</html>

@@ -1,33 +1,34 @@
 # code2paper
 
-Transform any local repository or codebase into an academic-grade research paper (Typst / LaTeX / HTML / Markdown + PDF). Built for FOSS devs and vibecoders. Stdlib-only Python CLI.
+Understand any repository — any language, any size — for every developer. A universal agent skill that reads real code and produces a plain-language guide plus a formal academic paper.
 
 ## Key resources
 
 - GitHub repository: https://github.com/AkashPriyadarshii/code2paper
 - Live landing page: https://akashpriyadarshii.github.io/code2paper/
-- Documentation (Usage): https://github.com/AkashPriyadarshii/code2paper/blob/main/docs/USAGE.md
-- Architecture: https://github.com/AkashPriyadarshii/code2paper/blob/main/docs/ARCHITECTURE.md
+- Skill file: https://github.com/AkashPriyadarshii/code2paper/blob/main/skills/code2paper.md
 - Related tool (Understand-Anything): https://github.com/Egonex-AI/Understand-Anything
 - Packing engine (Repomix): https://github.com/yamadashy/repomix
 
-## Quick start
+## Quick start (in any AI agent)
 
-```bash
-python code2paper.py /path/to/repo
-python code2paper.py . --out-dir ./build
+```
+/code2paper /path/to/repo
 ```
 
 ## Outputs
 
-- `paper.typ` — Typst source (compiles to `paper.pdf` when Typst CLI is installed)
+- `human-guide.md` — plain-language walkthrough for beginners & vibecoders
+- `paper.md` — GitHub-Flavored Markdown academic spec
+- `paper.typ` — Typst source (compiles to PDF via Typst CLI)
 - `paper.tex` — LaTeX source
 - `paper.html` — interactive WebPaper (print to PDF from any browser)
-- `paper.md` — GitHub-flavored Markdown specification
 
 ## Feature summary
 
-- Real AST analysis for Python (functions, classes, imports, cyclomatic complexity); regex heuristics for other languages
-- Internal dependency graph from Python imports
-- `.gitignore`-aware scanning with binary sniffing and per-file size caps
-- Agent skill (`skills/code2paper.md`) for terminal-based LLM agents
+- Universal agent skill — works in Claude Code, OpenCode, Codex, Gemini CLI, Cursor
+- 100+ language support (2026 ecosystem): import syntax, entrypoint conventions
+- Real code reading: entrypoints, dependency hubs, top-LOC modules
+- Measured metrics: files, LOC, cyclomatic complexity, dependency edges
+- Foundation-first reading order from the real dependency graph
+- Never guesses — unverified items are labeled "not verified"

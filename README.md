@@ -1,43 +1,57 @@
 # code2paper
 
-> Transform any local repository or codebase into an academic-grade research paper (Typst / LaTeX / HTML / Markdown + PDF). Built for FOSS devs and vibecoders.
+> **The skill that understands ANY repository — for every developer.** Drop it into any AI agent (Claude Code, OpenCode, Codex, Gemini CLI, Cursor) and get a plain-language guide for beginners AND a formal academic paper for architects — grounded in the real code, never guessed.
 
-## Features
-- **Real Code Analysis**: Python modules parsed via stdlib `ast` (functions, classes, imports, cyclomatic complexity); other languages analyzed via regex heuristics.
-- **Dependency Graph**: Internal Python import edges extracted automatically.
-- **Four Output Formats**: Typst (`paper.typ` → `paper.pdf`), LaTeX (`paper.tex`), interactive HTML WebPaper (`paper.html`), and GitHub-Flavored Markdown (`paper.md`).
-- **Safe Ingestion**: `.gitignore`-aware scanning, binary sniffing, per-file size caps, and automatic exclusion of generated outputs.
-- **Claude Agent Skill**: Native integration as a `/code2paper` skill for terminal-based LLM agents.
+## The core idea: skill-first
 
-## Ecosystem & Related Tools
-- **code2paper**: Formal academic paper, math, and system specification generator (Medium/Advanced devs & architects).
-- **[Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)**: Interactive visual knowledge graph and onboarding guide (Beginner-friendly visual learning).
-- **[Repomix](https://github.com/yamadashy/repomix)**: High-performance repository packing engine (optional, auto-detected).
+`code2paper` is a **universal agent skill**, not a CLI. Inside your AI agent it:
+
+1. **Reads the actual source** — entrypoints, dependency hubs, top-LOC modules.
+2. **Measures real numbers** — files, LOC, complexity, dependency edges (100+ languages, 2026 ecosystem).
+3. **Maps the dependency graph** and builds a foundation-first reading order.
+4. **Writes two artifacts from the same ground truth:**
+   - `human-guide.md` — plain-language walkthrough for beginners & vibecoders.
+   - `paper.*` — formal academic spec (Markdown / Typst / LaTeX / HTML-PDF) for advanced devs & architects.
+5. **Never ships guesses.** Anything unverified is labeled "not verified".
 
 ## Quick Start
-```bash
-# Basic run (generates paper.typ/tex/html/md in the current directory, compiles paper.pdf if typst is installed)
-python code2paper.py .
 
-# Write outputs into a separate directory
-python code2paper.py /path/to/repo --out-dir ./build
+```text
+# In any agent
+/code2paper /path/to/repo
 
-# Keep the Typst source file after compiling
-python code2paper.py . --keep-typst
-
-# Or run via Claude Code Agent Skill
-/code2paper
+# Or just ask
+"understand this repo: ./my-project"
+"make a whitepaper for this codebase"
 ```
 
-## Prerequisites
-- Python 3.10+ (stdlib only)
-- Optional: [Typst](https://typst.app) CLI for PDF compilation
-- Optional: [Repomix](https://github.com/yamadashy/repomix) for token-optimized packing (falls back to built-in walker)
+The skill works standalone — no Python package, no install, no CLI. It embeds its own language tables, import-syntax reference for 100+ languages, entrypoint conventions, templates, and a premortem checklist.
 
-## Testing
+## Outputs
+
+| Artifact | Audience | Format |
+| --- | --- | --- |
+| `human-guide.md` | Beginners & vibecoders | Plain language, reading order, glossary |
+| `paper.md` | Advanced devs | GFM academic spec |
+| `paper.typ` | Publication | Typst (compiles to PDF) |
+| `paper.tex` | Publication | LaTeX |
+| `paper.html` | Everyone | WebPaper with MathJax, print-to-PDF |
+
+## Install the skill
+
+Copy `skills/code2paper.md` into your agent's skill directory:
+
 ```bash
-python -m unittest discover tests
+# Claude Code / OpenCode / most agents
+mkdir -p ~/.claude/skills/code2paper
+cp skills/code2paper.md ~/.claude/skills/code2paper/SKILL.md
 ```
+
+## Ecosystem & Related Tools
+
+- **[Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)** — interactive visual knowledge graph for visual learners.
+- **[Repomix](https://github.com/yamadashy/repomix)** — high-performance repository packing engine.
 
 ## License
+
 MIT

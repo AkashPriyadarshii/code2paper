@@ -1,59 +1,56 @@
 # code2paper Usage Guide
 
-Step-by-step tutorial for using `code2paper` to turn any codebase into an academic paper.
+How to use `code2paper` to understand any repository — no install, no CLI.
 
-## Prerequisites
+## Option 1: In your AI agent (recommended)
 
-1. **Python 3.10+** (Required)
-2. **Typst Compiler** (Optional, for PDF compilation)
-   - Install via Cargo: `cargo install typst-cli`
-   - Or download from [typst.app](https://typst.app)
-3. **Repomix** (Optional, for token-optimized context extraction)
-   - Install globally: `npm install -g repomix`
-
-## Basic Usage
-
-### Option 1: Python CLI
-Run `code2paper.py` pointing to any directory:
-
-```bash
-# Basic run (writes paper.typ/tex/html/md to the current dir; compiles paper.pdf if typst is installed)
-python code2paper.py /path/to/repo
-
-# Write generated sources to a dedicated directory
-python code2paper.py /path/to/repo --out-dir build
-
-# Custom output PDF path
-python code2paper.py /path/to/repo -o build/my_paper.pdf
-
-# Keep intermediate Typst source file
-python code2paper.py /path/to/repo --keep-typst
-```
-
-### Option 2: Claude Agent Skill
-1. Place the skill directory in `~/.claude/skills/code2paper/`.
-2. In Claude Code terminal:
-   ```text
-   /code2paper
+1. Copy the skill into your agent's skill directory:
+   ```bash
+   mkdir -p ~/.claude/skills/code2paper
+   cp skills/code2paper.md ~/.claude/skills/code2paper/SKILL.md
    ```
+   (OpenCode, Codex, Gemini CLI, and Cursor accept the same `SKILL.md` format.)
+
+2. Run it:
+   ```text
+   /code2paper /path/to/repo
+   ```
+
+3. Or just ask in natural language:
+   ```text
+   "understand this repo: ./my-project"
+   "make a whitepaper for this codebase"
+   "is this repo beginner-friendly?"
+   ```
+
+The agent then reads the real code, measures real metrics, maps the dependency graph,
+and writes `human-guide.md` + `paper.{md,typ,tex,html}`.
 
 ## Outputs
 
-| File | Format |
-| --- | --- |
-| `paper.typ` | Typst source (compiles to `paper.pdf`) |
-| `paper.tex` | LaTeX source |
-| `paper.html` | Interactive WebPaper (print to PDF from browser) |
-| `paper.md` | GitHub-Flavored Markdown |
+| Artifact | Format | Audience |
+| --- | --- | --- |
+| `human-guide.md` | Plain-language guide | Beginners & vibecoders |
+| `paper.md` | GitHub-Flavored Markdown spec | Advanced |
+| `paper.typ` | Typst source (compiles to `paper.pdf`) | Publication |
+| `paper.tex` | LaTeX source | Publication |
+| `paper.html` | WebPaper with MathJax (print-to-PDF) | Everyone |
 
-## What gets analyzed
+## Optional: compile a PDF
 
-- Python modules: full AST analysis (functions, classes, imports, cyclomatic complexity).
-- Other languages: regex heuristics for functions/classes and control-flow complexity.
-- Internal dependency graph from Python imports.
+If you have the Typst CLI installed:
+
+```bash
+typst compile paper.typ paper.pdf
+```
+
+If not, open `paper.html` in a browser and print to PDF — zero toolchain.
 
 ## Troubleshooting
 
-- **PDF not compiling**: Verify `typst --version` works in your shell. If not installed, `code2paper` falls back to the HTML WebPaper (browser print-to-PDF) plus `paper.typ`/`paper.tex` sources.
-- **Large codebase truncation**: Files over 1MB are skipped automatically; install `repomix` for token-optimized context on huge repositories.
-- **Outputs inside the repo**: generated `paper.*` files are always excluded from analysis on subsequent runs.
+- **Agent produced guesses?** The skill mandates reading real code. If a section looks
+  invented, the agent skipped Step 3 — re-run and insist every claim be code-grounded.
+- **Huge repo?** The skill reads entrypoints + hubs + top-LOC + a sample per directory,
+  and labels the rest "overviewed". That is by design.
+- **Non-Python repo?** Language tables cover 100+ languages (2026 ecosystem), including
+  import syntax and entrypoint conventions.

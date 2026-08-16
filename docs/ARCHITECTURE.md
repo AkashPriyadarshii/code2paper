@@ -1,31 +1,44 @@
 # System Architecture: code2paper
 
+code2paper is a **universal agent skill** — a single self-contained skill file that runs
+inside any AI agent. There is no CLI and no runtime dependency.
+
 ```
-┌──────────────┐   ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
-│  Local Repo  │ → │ Scan & Analyze   │ → │  Renderers       │ → │ Typst / LaTeX /  │
-│ (Source Code)│   │ (gitignore-aware │   │ (Typst, LaTeX,   │   │ HTML / Markdown  │
-│              │   │  walker + AST/   │   │  HTML, Markdown) │   │ / PDF outputs    │
-└──────────────┘   │  regex metrics)  │   └──────────────────┘   └──────────────────┘
-                   └──────────────────┘
+┌──────────────┐   ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────────┐
+│  Repo path   │ → │ Agent reads code │ → │ Agent measures    │ → │ Agent writes         │
+│ (any language│   │ (entrypoints,    │   │ (files, LOC,      │   │ human-guide.md +     │
+│  , any size) │   │  hubs, top-LOC)  │   │  complexity, deps)│   │ paper.{md,typ,tex,   │
+└──────────────┘   └──────────────────┘   └──────────────────┘   │ html}                │
+                                                                 └──────────────────────┘
 ```
 
 ## Core Components
 
-All logic lives in a single stdlib-only module, `code2paper.py`:
+All logic lives in a single file, `skills/code2paper.md`:
 
-1. **Scanner (`iter_source_files`, `scan_file`)**: `.gitignore`-aware repository walker with binary sniffing, per-file size caps (1MB), and exclusion of generated `paper.*` outputs.
-2. **Analyzer (`analyze_python`, `analyze_generic`, `build_report`)**: Python modules are parsed via `ast` for functions, classes, imports, and cyclomatic complexity; other languages use regex heuristics. `build_deps` derives an internal import dependency graph.
-3. **Renderers (`generate_paper_source`, `generate_latex_source`, `generate_html_paper_source`, `generate_markdown_source`)**: emit Typst, LaTeX, HTML WebPaper, and GitHub-Flavored Markdown from a shared report.
-4. **Optional packer (`pack_codebase`)**: uses `repomix --stdout` when installed (resolved binary, timeout guarded); falls back to the native walker.
-5. **Compiler (in `main`)**: calls `typst compile` when the Typst CLI is present; otherwise HTML WebPaper serves as the PDF fallback.
+1. **Step 0 — Audience check**: beginner/vibecoder, advanced, or both; routes output priority.
+2. **Step 1 — Inventory**: agent lists the repo, identifies stack, framework, entrypoints.
+3. **Step 2 — Metrics**: agent measures real numbers (files, LOC, complexity) using its own tools.
+4. **Step 3 — Read**: agent reads actual source (entrypoints + hubs + top-LOC + per-directory samples).
+5. **Step 4 — Dependency map**: language-specific import syntax tables (100+ languages) build the
+   dependency graph and a foundation-first reading order.
+6. **Step 5-6 — Render**: `human-guide.md` (plain language) + `paper.*` (formal spec).
+7. **Step 7 — Compile & deliver**: optional `typst compile`; HTML WebPaper as zero-CLI PDF route.
+
+## Embedded reference data (inside the skill)
+
+- Language tables: 100+ languages with import syntax for dependency mapping.
+- Entrypoint conventions per stack (Python, Node, Flutter, JVM, Go, Rust, C/C++, C#, PHP, Ruby, ...).
+- Function/class detection hints per language family.
+- Templates for both artifacts, a verification checklist, and a premortem failure table.
 
 ## Outputs
 
-- `paper.typ` → `paper.pdf` (requires Typst CLI)
-- `paper.tex` — LaTeX source
-- `paper.html` — self-contained interactive WebPaper (MathJax, print-to-PDF)
-- `paper.md` — GitHub-Flavored Markdown
+- `human-guide.md` — plain-language guide (beginners & vibecoders)
+- `paper.md` / `paper.typ` / `paper.tex` — formal academic spec (advanced)
+- `paper.html` — WebPaper with MathJax (print-to-PDF, everyone)
 
-## Skill Package
+## Skill File
 
-`skills/code2paper.md` defines the Claude/LLM agent skill that orchestrates the CLI and a semantic LLM synthesis pass.
+`skills/code2paper.md` defines the workflow, embedded language reference, templates,
+and QA gates. Copy it into any agent's skill directory to install.
