@@ -13,10 +13,10 @@ Real repositories analyzed by the code2paper skill. Each example pairs a
 | --- | --- |
 | Plain-language guide | [human-guide.md](neet-cbt-site/human-guide.md) |
 | Formal spec (Markdown) | [paper.md](neet-cbt-site/paper.md) |
-| Interactive WebPaper | [paper.html](neet-cbt-site/paper.html) |
+| Interactive WebPaper | [paper.html (live)](https://akashpriyadarshii.github.io/code2paper/examples/neet-cbt-site/paper.html) |
 | Typst source | [paper.typ](neet-cbt-site/paper.typ) |
 | LaTeX source | [paper.tex](neet-cbt-site/paper.tex) |
-| Compiled PDF | [paper.pdf](neet-cbt-site/paper.pdf) |
+| Compiled PDF | [paper.pdf (live)](https://akashpriyadarshii.github.io/code2paper/examples/neet-cbt-site/paper.pdf) |
 
 What it shows: a single-file marketing site — every section grounded in the actual
 `index.html` (CSS variables, JSON-LD schema, CTA flow, `<details>` FAQ), with real
