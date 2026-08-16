@@ -15,8 +15,14 @@
 
 ## Quick Start
 ```bash
-# Generate paper for current repository
-npx code2paper .
+# Basic run (generates paper.typ and compiles paper.pdf)
+python code2paper.py .
+
+# Keep Typst source file
+python code2paper.py . --keep-typst
+
+# Or run via Claude Code Agent Skill
+/code2paper
 ```
 
 ## License
