@@ -21,7 +21,7 @@ DEFAULT_TYPST_TEMPLATE = """#set page(
     #align(center)[#text(size: 9pt, fill: rgb("#666666"))[Page #counter(page).display()]]
   ]
 )
-#set text(font: "Liberation Serif", size: 10pt)
+#set text(font: ("Times New Roman", "Liberation Serif", "Arial", "DejaVu Serif"), size: 10pt)
 
 #align(center)[
   #block(width: 100%)[
@@ -62,6 +62,20 @@ DEFAULT_TYPST_TEMPLATE = """#set page(
 {tradeoffs}
 """
 
+def parse_gitignore(repo_path: Path) -> set:
+    """Parse .gitignore rules if present."""
+    ignored = set()
+    gitignore_path = repo_path / ".gitignore"
+    if gitignore_path.exists():
+        try:
+            for line in gitignore_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    ignored.add(line.rstrip("/"))
+        except Exception:
+            pass
+    return ignored
+
 def pack_codebase(repo_path: Path) -> str:
     """Pack codebase using repomix if installed, else native fallback."""
     repomix_bin = shutil.which("repomix") or shutil.which("npx")
@@ -74,14 +88,17 @@ def pack_codebase(repo_path: Path) -> str:
         except Exception:
             pass
 
-    # Native fallback: scan text files
-    ignore_dirs = {".git", "node_modules", "__pycache__", ".venv", "dist", "build"}
-    ignore_exts = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".zip", ".exe", ".dll", ".so", ".pyc"}
+    # Native fallback: scan text files with gitignore awareness
+    custom_ignored = parse_gitignore(repo_path)
+    ignore_dirs = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", ".idea", ".vscode"}.union(custom_ignored)
+    ignore_exts = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".zip", ".exe", ".dll", ".so", ".pyc", ".tar", ".gz", ".env", ".secrets"}
 
     packed = [f"=== Repository Context: {repo_path.name} ===\n"]
     for root, dirs, files in os.walk(repo_path):
-        dirs[:] = [d for d in dirs if d not in ignore_dirs]
+        dirs[:] = [d for d in dirs if d not in ignore_dirs and not d.startswith(".")]
         for file in files:
+            if file.startswith(".env") or file in ignore_dirs:
+                continue
             p = Path(root) / file
             if p.suffix in ignore_exts:
                 continue
@@ -95,9 +112,12 @@ def pack_codebase(repo_path: Path) -> str:
 
 def generate_paper_source(repo_path: Path, packed_code: str, title: str) -> str:
     """Generate Typst markup representing the paper."""
-    abstract = f"This document presents the system architecture, component breakdown, and algorithmic specification of {title}. The codebase comprises {len(packed_code.splitlines())} lines of structural representation auto-analyzed by code2paper."
-    overview = f"The repository `{repo_path.name}` implements a modular system. Source files analyzed: {len(packed_code.split('--- File: '))} primary modules."
-    architecture = "```\n" + "\n".join([line for line in packed_code.splitlines() if line.startswith("--- File: ")][:15]) + "\n```"
+    lines = packed_code.splitlines()
+    files_found = [line.replace("--- File: ", "").strip() for line in lines if line.startswith("--- File: ")]
+
+    abstract = f"This document presents the system architecture, component breakdown, and algorithmic specification of {title}. The codebase comprises {len(lines)} lines of structural representation across {len(files_found)} key source modules auto-analyzed by code2paper."
+    overview = f"The repository `{repo_path.name}` implements a modular system. Primary source files analyzed:\n\n" + "\n".join([f"- `{f}`" for f in files_found[:15]])
+    architecture = "```\n" + "\n".join([f"├── {f}" for f in files_found[:20]]) + "\n```"
     modules = "Core components handle data processing, logic orchestration, and runtime execution."
     data_flow = "$ f(x) = \\text{Transform}(x) \\quad \\text{where } x \\in \\mathcal{D}_{\\text{codebase}} $"
     tradeoffs = "1. Scalability: Memory footprint scales linearly with module count.\n2. Dependency Bound: Dependent on stdlib and external parser availability."
@@ -144,7 +164,7 @@ def main():
         else:
             print(f"[code2paper] Typst compilation failed:\n{res.stderr}", file=sys.stderr)
     else:
-        print("[code2paper] 'typst' CLI not found. Install Typst to auto-compile PDF (https://typst.app).")
+        print("[code2paper] 'typst' CLI not found. Generated 'paper.typ'. Install Typst to auto-compile PDF (https://typst.app).")
 
     if not args.keep_typst and typst_bin and (repo_path / "paper.typ").exists():
         os.remove(typst_path)
