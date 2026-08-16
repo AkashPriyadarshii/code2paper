@@ -7,73 +7,32 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
   <style>
     :root {
-      --bg: #f4f5f7;
-      --paper: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --accent: #2563eb;
+      --bg: #f4f5f7; --paper: #ffffff; --text: #1e293b;
+      --muted: #64748b; --border: #e2e8f0; --accent: #2563eb;
     }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Times New Roman', Times, serif, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 40px 20px;
+      background: var(--bg); color: var(--text);
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 1.6; margin: 0; padding: 40px 20px;
     }
     .paper {
-      max-width: 850px;
-      margin: 0 auto;
-      background: var(--paper);
-      padding: 60px 80px;
-      border-radius: 4px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      border: 1px solid var(--border);
+      max-width: 850px; margin: 0 auto; background: var(--paper);
+      padding: 60px 80px; border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border);
     }
-    h1 {
-      font-size: 22pt;
-      text-align: center;
-      margin-bottom: 4px;
-    }
-    .subtitle {
-      text-align: center;
-      font-style: italic;
-      color: var(--muted);
-      font-size: 11pt;
-      margin-bottom: 24px;
-    }
-    .abstract {
-      background: #f8fafc;
-      border-left: 4px solid var(--accent);
-      padding: 16px;
-      margin: 24px 0;
-      font-size: 10pt;
-    }
-    h2 {
-      font-size: 14pt;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 4px;
-      margin-top: 32px;
-      color: #0f172a;
-    }
-    pre {
-      background: #0f172a;
-      color: #38bdf8;
-      padding: 16px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 9.5pt;
-      overflow-x: auto;
-    }
-    .math-block {
-      background: #f8fafc;
-      padding: 12px;
-      text-align: center;
-      font-size: 12pt;
-      border-radius: 4px;
-      margin: 16px 0;
-    }
+    h1 { font-size: 22pt; text-align: center; margin-bottom: 4px; }
+    .subtitle { text-align: center; font-style: italic; color: var(--muted);
+                 font-size: 11pt; margin-bottom: 24px; }
+    .abstract { background: #f8fafc; border-left: 4px solid var(--accent);
+                 padding: 16px; margin: 24px 0; font-size: 10pt; }
+    h2 { font-size: 14pt; border-bottom: 1px solid var(--border);
+         padding-bottom: 4px; margin-top: 32px; color: #0f172a; }
+    pre { background: #0f172a; color: #38bdf8; padding: 16px; border-radius: 6px;
+          font-family: monospace; font-size: 9.5pt; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; font-size: 10pt; }
+    td, th { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+    .math-block { background: #f8fafc; padding: 12px; text-align: center;
+                  font-size: 12pt; border-radius: 4px; margin: 16px 0; }
     @media print {
       body { background: #fff; padding: 0; }
       .paper { box-shadow: none; border: none; padding: 0; max-width: 100%; }
@@ -85,39 +44,53 @@
     <h1>Code2Paper</h1>
     <div class="subtitle">An Automated Architectural Analysis & Specification (WebPaper)</div>
     <div class="abstract">
-      <strong>Abstract</strong> -- This document presents the architectural topology, module dependencies, and algorithmic formalization of <code>code2paper</code>. Generated automatically via code2paper WebPaper engine.
+      <strong>Abstract</strong> -- The repository `code2paper` implements a modular system analyzed by code2paper. It contains 15 source files totaling 2107 lines of code with an estimated cyclomatic complexity of 229.
+
+Language breakdown:
+- `.py`: 2 files, 911 lines
+- `.html`: 1 files, 876 lines
+- `.md`: 9 files, 247 lines
+- `(none)`: 2 files, 40 lines
+- `.txt`: 1 files, 33 lines
     </div>
 
     <h2>1. System Overview</h2>
-    <p>Repository comprises 1257 lines across 15 key source modules:</p>
-    <ul><li><code>AGENTS.md ---</code></li><li><code>CLAUDE.md ---</code></li><li><code>code2paper.py ---</code></li><li><code>CONTRIBUTING.md ---</code></li><li><code>index.html ---</code></li><li><code>LICENSE ---</code></li><li><code>paper.html ---</code></li><li><code>paper.md ---</code></li><li><code>paper.typ ---</code></li><li><code>README.md ---</code></li><li><code>docs\ARCHITECTURE.md ---</code></li><li><code>docs\DESIGN.md ---</code></li><li><code>docs\PRD.md ---</code></li><li><code>docs\USAGE.md ---</code></li><li><code>skills\code2paper.md ---</code></li></ul>
+    <p>Repository <code>code2paper</code> &mdash;
+       15 files, 2107 LOC,
+       estimated complexity 229.</p>
+    <table><tr><th>Language</th><th>Files</th><th>Lines</th></tr><tr><td><code>.py</code></td><td>2</td><td>911</td></tr><tr><td><code>.html</code></td><td>1</td><td>876</td></tr><tr><td><code>.md</code></td><td>9</td><td>247</td></tr><tr><td><code>(none)</code></td><td>2</td><td>40</td></tr><tr><td><code>.txt</code></td><td>1</td><td>33</td></tr></table>
 
-    <h2>2. Architecture Tree</h2>
-    <pre>├── AGENTS.md ---
-├── CLAUDE.md ---
-├── code2paper.py ---
-├── CONTRIBUTING.md ---
-├── index.html ---
-├── LICENSE ---
-├── paper.html ---
-├── paper.md ---
-├── paper.typ ---
-├── README.md ---
-├── docs\ARCHITECTURE.md ---
-├── docs\DESIGN.md ---
-├── docs\PRD.md ---
-├── docs\USAGE.md ---
-├── skills\code2paper.md ---</pre>
+    <h2>2. Architecture & Dependency Graph</h2>
+    <pre>index.html (876 LOC)
+code2paper.py (675 LOC)
+tests/test_code2paper.py (236 LOC)
+docs/USAGE.md (59 LOC)
+README.md (43 LOC)
+skills/code2paper.md (41 LOC)
+llms.txt (33 LOC)
+docs/ARCHITECTURE.md (31 LOC)
+LICENSE (21 LOC)
+docs/DESIGN.md (20 LOC)
+.gitignore (19 LOC)
+docs/PRD.md (19 LOC)
+CONTRIBUTING.md (17 LOC)
+CLAUDE.md (12 LOC)
+AGENTS.md (5 LOC)</pre>
+    <ul><li><code>tests/test_code2paper.py</code> &rarr; <code>code2paper.py</code></li></ul>
 
     <h2>3. Core Modules & Formalization</h2>
+    <ul><li><code>index.html</code> &mdash; 876 LOC, complexity 22</li><li><code>code2paper.py</code> &mdash; 675 LOC, complexity 126</li><li><code>tests/test_code2paper.py</code> &mdash; 236 LOC, complexity 56</li><li><code>docs/USAGE.md</code> &mdash; 59 LOC, complexity 5</li><li><code>README.md</code> &mdash; 43 LOC, complexity 4</li><li><code>skills/code2paper.md</code> &mdash; 41 LOC, complexity 4</li><li><code>llms.txt</code> &mdash; 33 LOC, complexity 4</li><li><code>docs/ARCHITECTURE.md</code> &mdash; 31 LOC, complexity 1</li><li><code>LICENSE</code> &mdash; 21 LOC, complexity 0</li><li><code>docs/DESIGN.md</code> &mdash; 20 LOC, complexity 2</li><li><code>.gitignore</code> &mdash; 19 LOC, complexity 0</li><li><code>docs/PRD.md</code> &mdash; 19 LOC, complexity 4</li><li><code>CONTRIBUTING.md</code> &mdash; 17 LOC, complexity 1</li><li><code>CLAUDE.md</code> &mdash; 12 LOC, complexity 0</li><li><code>AGENTS.md</code> &mdash; 5 LOC, complexity 0</li></ul>
     <div class="math-block">
-      \[ f(x) = \text{Transform}(x) \quad \text{where } x \in \mathcal{D}_{\text{codebase}} \]
+      \[ L_{\text{total}} = \sum_{f \in F} \ell(f) = 2107 \]
+      \[ C_{\text{total}} = \sum_{f \in F} c(f) = 229 \]
+      \[ |E| = 1 \]
     </div>
 
     <h2>4. Implementation Trade-offs</h2>
     <ol>
       <li>Zero-CLI WebPaper rendering via browser print (Ctrl+P).</li>
       <li>AST packaging bound by stdlib memory capacity.</li>
+      <li>Python modules analyzed via AST; other languages via regex heuristics.</li>
     </ol>
   </div>
 </body>

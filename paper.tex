@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\title{Code2Paper}
+\author{code2paper -- Automated Architectural Analysis}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The repository code2paper implements a modular system analyzed by code2paper. It contains 15 source files totaling 2107 lines of code with an estimated cyclomatic complexity of 229.
+
+Language breakdown:
+- .py: 2 files, 911 lines
+- .html: 1 files, 876 lines
+- .md: 9 files, 247 lines
+- (none): 2 files, 40 lines
+- .txt: 1 files, 33 lines
+\end{abstract}
+
+\section{System Overview}
+The repository code2paper implements a modular system analyzed by code2paper. It contains 15 source files totaling 2107 lines of code with an estimated cyclomatic complexity of 229.
+
+Language breakdown:
+- .py: 2 files, 911 lines
+- .html: 1 files, 876 lines
+- .md: 9 files, 247 lines
+- (none): 2 files, 40 lines
+- .txt: 1 files, 33 lines
+
+\subsection{Language Breakdown}
+\begin{itemize}
+\item \texttt{.py}: 2 files, 911 lines
+\item \texttt{.html}: 1 files, 876 lines
+\item \texttt{.md}: 9 files, 247 lines
+\item \texttt{(none)}: 2 files, 40 lines
+\item \texttt{.txt}: 1 files, 33 lines
+\end{itemize}
+
+\section{Architecture \& Component Structure}
+\begin{itemize}
+\texttt{index.html (876 LOC)}
+\texttt{code2paper.py (675 LOC)}
+\texttt{tests/test\_code2paper.py (236 LOC)}
+\texttt{docs/USAGE.md (59 LOC)}
+\texttt{README.md (43 LOC)}
+\texttt{skills/code2paper.md (41 LOC)}
+\texttt{llms.txt (33 LOC)}
+\texttt{docs/ARCHITECTURE.md (31 LOC)}
+\texttt{LICENSE (21 LOC)}
+\texttt{docs/DESIGN.md (20 LOC)}
+\texttt{.gitignore (19 LOC)}
+\texttt{docs/PRD.md (19 LOC)}
+\end{itemize}
+
+\subsection{Dependency Graph}
+\begin{itemize}
+\item \texttt{tests/test\_code2paper.py} $\rightarrow$ \texttt{code2paper.py}
+\end{itemize}
+
+\section{Core Module Specifications}
+['\\subsubsection*{index.html}\n876 LOC, complexity 22\n\\begin{itemize}\n\\item \\texttt{refreshPaper(...)}\n\\item \\texttt{switchTab(...)}\n\\item \\texttt{applyPreset(...)}\n\\item \\texttt{triggerPDFPrint(...)}\n\\item \\texttt{setTimeout(...)}\n\\item \\texttt{copySnippet(...)}\n\\end{itemize}', '\\subsubsection*{code2paper.py}\n675 LOC, complexity 126\n\\begin{itemize}\n\\item \\texttt{parse\\_gitignore(repo\\_path: Path)}\n\\item \\texttt{is\\_ignored(rel, patterns)}\n\\item \\texttt{\\_within(child: Path, parent: Path)}\n\\item \\texttt{iter\\_source\\_files(repo\\_path: Path, patterns: set, exclude\\_basenames=frozenset(), exclude\\_prefixes=())}\n\\item \\texttt{scan\\_file(path: str, rel: str)}\n\\item \\texttt{\\_norm\\_ext(rel: str)}\n\\item \\texttt{analyze\\_python(info: dict)}\n\\item \\texttt{analyze\\_generic(info: dict)}\n\\item \\texttt{analyze\\_file(info: dict)}\n\\item \\texttt{build\\_deps(files: list)}\n\\end{itemize}', '\\subsubsection*{tests/test\\_code2paper.py}\n236 LOC, complexity 56\n\\begin{itemize}\n\\item \\texttt{TestGitignore(test\\_parse\\_gitignore, test\\_is\\_ignored\\_patterns, test\\_iter\\_source\\_files\\_excludes\\_outputs\\_and\\_ignored)}\n\\item \\texttt{TestScan(test\\_scan\\_file\\_line\\_count, test\\_scan\\_file\\_binary\\_sniff, test\\_iter\\_source\\_files\\_skips\\_oversized, test\\_iter\\_source\\_files\\_exclude\\_prefix)}\n\\item \\texttt{TestAnalysis(test\\_analyze\\_python, test\\_analyze\\_python\\_syntax\\_error\\_falls\\_back, test\\_analyze\\_generic\\_js, test\\_analyze\\_generic\\_class, test\\_build\\_deps)}\n\\item \\texttt{TestReport(test\\_build\\_report\\_metrics, test\\_build\\_report\\_excludes\\_outputs)}\n\\item \\texttt{TestPack(test\\_pack\\_native\\_excludes\\_outputs, test\\_pack\\_uses\\_repomix\\_when\\_available)}\n\\item \\texttt{TestEscaping(test\\_typst\\_escape, test\\_latex\\_escape)}\n\\item \\texttt{make\\_repo(files: dict, gitignore: str=None)}\n\\item \\texttt{test\\_parse\\_gitignore(self)}\n\\item \\texttt{test\\_is\\_ignored\\_patterns(self)}\n\\item \\texttt{test\\_iter\\_source\\_files\\_excludes\\_outputs\\_and\\_ignored(self)}\n\\item \\texttt{test\\_scan\\_file\\_line\\_count(self)}\n\\item \\texttt{test\\_scan\\_file\\_binary\\_sniff(self)}\n\\item \\texttt{test\\_iter\\_source\\_files\\_skips\\_oversized(self)}\n\\item \\texttt{test\\_iter\\_source\\_files\\_exclude\\_prefix(self)}\n\\item \\texttt{test\\_analyze\\_python(self)}\n\\item \\texttt{test\\_analyze\\_python\\_syntax\\_error\\_falls\\_back(self)}\n\\end{itemize}', '\\subsubsection*{docs/USAGE.md}\n59 LOC, complexity 5\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{README.md}\n43 LOC, complexity 4\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{skills/code2paper.md}\n41 LOC, complexity 4\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{llms.txt}\n33 LOC, complexity 4\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{docs/ARCHITECTURE.md}\n31 LOC, complexity 1\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{LICENSE}\n21 LOC, complexity 0\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{docs/DESIGN.md}\n20 LOC, complexity 2\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{.gitignore}\n19 LOC, complexity 0\n\\begin{itemize}\n\\end{itemize}', '\\subsubsection*{docs/PRD.md}\n19 LOC, complexity 4\n\\begin{itemize}\n\\end{itemize}']
+
+\section{Mathematical Formalization \& Data Flow}
+Total lines of code:
+\[ L_{\text{total}} = \sum_{f \in F} \ell(f) = 2107 \]
+Estimated cyclomatic complexity:
+\[ C_{\text{total}} = \sum_{f \in F} c(f) = 229 \]
+Internal dependency edges:
+\[ |E| = 1 \]
+
+\section{Implementation Trade-offs \& Limitations}
+1. Scalability: memory footprint scales linearly with module count; context packing is capped at per-file limits to bound resource usage.
+2. Language Coverage: Python modules get full AST analysis; other languages use regex heuristics (function/class estimates, not bytecode-accurate).
+3. Dependency Bound: relies on stdlib and optional external tooling (repomix, typst); absent tools degrade gracefully.
+4. Complexity Estimates: 229 is an estimated cyclomatic complexity across all files, dominated by control-flow constructs.
+\end{document}

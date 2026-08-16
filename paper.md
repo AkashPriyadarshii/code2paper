@@ -1,62 +1,65 @@
-# code2paper: Automated Architectural Synthesis and Academic Formalization of Software Repositories
+# Code2Paper
 
-**Author**: Akash Priyadarshi  
-**Version**: v0.1.0 Technical Specification  
-
----
+> Automated architectural analysis and specification generated via code2paper.
 
 ## Abstract
-We present **code2paper**, a lightweight, standard-library-first CLI tool and LLM Agent Skill that automatically parses local software repositories and synthesizes formal academic-grade technical specifications in Typst and LaTeX. Software projects frequently lack formal mathematical and architectural documentation due to high manual authoring overhead. **code2paper** bridges this gap by coupling AST context packing (via Repomix or native gitignore-aware traversal) with a multi-stage LLM semantic synthesis pipeline. We evaluate **code2paper** on its own codebase, demonstrating complete formalization of system topology, data transformation bounds, and execution complexity.
 
----
+The repository `code2paper` implements a modular system analyzed by code2paper. It contains 15 source files totaling 2107 lines of code with an estimated cyclomatic complexity of 229.
 
-## 1. Introduction & Problem Definition
-Modern software engineering produces complex, multi-layered codebases, yet formal architectural specifications remain rare outside safety-critical domains. Existing documentation tools generate API reference lists but fail to formalize high-level mathematical transformations, component dependencies, and system trade-offs.
+Language breakdown:
+- `.py`: 2 files, 911 lines
+- `.html`: 1 files, 876 lines
+- `.md`: 9 files, 247 lines
+- `(none)`: 2 files, 40 lines
+- `.txt`: 1 files, 33 lines
 
-**code2paper** addresses this problem by treating codebase transformation as an inverse paper compilation process:
-$$ S_{\text{repo}} \xrightarrow{\text{Repomix}} \mathcal{D}_{\text{AST}} \xrightarrow{\text{LLM Synthesis}} \mathcal{P}_{\text{Typst}} \xrightarrow{\text{Typst Compiler}} \mathcal{O}_{\text{PDF}} $$
+## 1. System Overview
 
----
+Repository: **code2paper** -- 15 files, 2107 LOC,
+estimated cyclomatic complexity 229.
 
-## 2. System Architecture
-The system consists of three decoupled components:
-1. **Ingestor (`code2paper.py`)**: Traverses the repository tree, enforces `.gitignore` exclusions, filters binary assets, and emits a consolidated structural context.
-2. **Synthesizer (`skills/code2paper/SKILL.md`)**: Executes a 4-step LLM analysis pass extracting abstract, system topology, component tables, and mathematical formulas.
-3. **Compiler (`typst`)**: Compiles the generated markup into IEEE-styled PDF documents.
+### Language Breakdown
 
-```
-[Local Repo] --> Ingestor (Repomix / Stdlib Walk)
-  --> Context Buffer (codebase AST / XML)
-  --> LLM Synthesis Pass (Equations + Specs)
-  --> paper.typ (Typst Source) --> paper.pdf (Compiled Spec)
-```
+- `.py`: 2 files, 911 lines
+- `.html`: 1 files, 876 lines
+- `.md`: 9 files, 247 lines
+- `(none)`: 2 files, 40 lines
+- `.txt`: 1 files, 33 lines
 
----
+## 2. Architecture & Component Structure
 
-## 3. Core Module Specifications
+| Module | LOC | Complexity | Functions/Classes |
+| --- | ---: | ---: | --- |
+| `index.html` | 876 | 22 | refreshPaper(...), switchTab(...), applyPreset(...), triggerPDFPrint(...) |
+| `code2paper.py` | 675 | 126 | parse_gitignore(repo_path: Path), is_ignored(rel, patterns), _within(child: Path, parent: Path), iter_source_files(repo_path: Path, patterns: set, exclude_basenames=frozenset(), exclude_prefixes=()) |
+| `tests/test_code2paper.py` | 236 | 56 | make_repo(files: dict, gitignore: str=None), test_parse_gitignore(self), test_is_ignored_patterns(self), test_iter_source_files_excludes_outputs_and_ignored(self) |
+| `docs/USAGE.md` | 59 | 5 |  |
+| `README.md` | 43 | 4 |  |
+| `skills/code2paper.md` | 41 | 4 |  |
+| `llms.txt` | 33 | 4 |  |
+| `docs/ARCHITECTURE.md` | 31 | 1 |  |
+| `LICENSE` | 21 | 0 |  |
+| `docs/DESIGN.md` | 20 | 2 |  |
+| `.gitignore` | 19 | 0 |  |
+| `docs/PRD.md` | 19 | 4 |  |
+| `CONTRIBUTING.md` | 17 | 1 |  |
+| `CLAUDE.md` | 12 | 0 |  |
+| `AGENTS.md` | 5 | 0 |  |
 
-| Module Path | Primary Responsibility | Dependencies |
-| :--- | :--- | :--- |
-| `code2paper.py` | Stdlib repository walk, .gitignore parsing, Typst template injection, and compilation CLI. | Python 3.10+ Stdlib |
-| `skills/code2paper/SKILL.md` | Claude Agent Skill definition instructing LLM on semantic extraction and math synthesis. | Claude Code Agent |
-| `index.html` | Responsive product landing page hosted on GitHub Pages. | HTML5 / CSS3 |
-| `docs/USAGE.md` | Prerequisites, CLI examples, and troubleshooting guide. | Markdown |
-| `docs/ARCHITECTURE.md` | High-level system block diagram and module breakdown. | Markdown |
 
----
+## 3. Dependency Graph
 
-## 4. Algorithmic & Mathematical Formalization
-Let $R$ be a repository containing set of files $F = \{f_1, f_2, \dots, f_n\}$. The packing function $P(R)$ maps the file tree to context string $C$:
-$$ P(R) = \bigoplus_{i=1}^{n} \mathbb{I}(f_i \notin I_{\text{ignore}}) \cdot \text{Read}(f_i) $$
+- `tests/test_code2paper.py` -> `code2paper.py`
 
-where $I_{\text{ignore}} = I_{\text{git}} \cup I_{\text{binary}} \cup I_{\text{secrets}}$.
+## 4. Mathematical Formalization & Data Flow
 
-The space complexity of context accumulation is strictly linear with total code volume:
-$$ \mathcal{O}_{\text{space}}(P) = \sum_{i=1}^{n} |f_i| $$
+- Total lines of code: $L_{total} = \sum_{f \in F} \ell(f) = 2107$
+- Estimated cyclomatic complexity: $C_{total} = \sum_{f \in F} c(f) = 229$
+- Internal dependency edges: $|E| = 1$
 
----
+## 5. Implementation Trade-offs & Limitations
 
-## 5. Implementation Trade-offs & Future Work
-- **Zero Heavy Dependencies**: Built exclusively using Python standard library modules (`sys`, `os`, `subprocess`, `shutil`, `argparse`).
-- **Cross-Platform Font Fallbacks**: Template uses `"Times New Roman", "Liberation Serif", "Arial"` to ensure compilation on Linux, macOS, and Windows.
-- **Future Work**: Support for multi-column IEEE LaTeX export and automated Mermaid-to-Typst vector graph rendering.
+1. Scalability: memory footprint scales linearly with module count; context packing is capped at per-file limits to bound resource usage.
+2. Language Coverage: Python modules get full AST analysis; other languages use regex heuristics (function/class estimates, not bytecode-accurate).
+3. Dependency Bound: relies on stdlib and optional external tooling (repomix, typst); absent tools degrade gracefully.
+4. Complexity Estimates: 229 is an estimated cyclomatic complexity across all files, dominated by control-flow constructs.

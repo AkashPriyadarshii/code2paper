@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.coverage
+*.cover
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+
+# Generated paper artifacts (regenerate via `python code2paper.py .`)
+paper.pdf
+build/
+dist/
+.gstack/

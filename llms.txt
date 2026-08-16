@@ -1,0 +1,33 @@
+# code2paper
+
+Transform any local repository or codebase into an academic-grade research paper (Typst / LaTeX / HTML / Markdown + PDF). Built for FOSS devs and vibecoders. Stdlib-only Python CLI.
+
+## Key resources
+
+- GitHub repository: https://github.com/AkashPriyadarshii/code2paper
+- Live landing page: https://akashpriyadarshii.github.io/code2paper/
+- Documentation (Usage): https://github.com/AkashPriyadarshii/code2paper/blob/main/docs/USAGE.md
+- Architecture: https://github.com/AkashPriyadarshii/code2paper/blob/main/docs/ARCHITECTURE.md
+- Related tool (Understand-Anything): https://github.com/Egonex-AI/Understand-Anything
+- Packing engine (Repomix): https://github.com/yamadashy/repomix
+
+## Quick start
+
+```bash
+python code2paper.py /path/to/repo
+python code2paper.py . --out-dir ./build
+```
+
+## Outputs
+
+- `paper.typ` — Typst source (compiles to `paper.pdf` when Typst CLI is installed)
+- `paper.tex` — LaTeX source
+- `paper.html` — interactive WebPaper (print to PDF from any browser)
+- `paper.md` — GitHub-flavored Markdown specification
+
+## Feature summary
+
+- Real AST analysis for Python (functions, classes, imports, cyclomatic complexity); regex heuristics for other languages
+- Internal dependency graph from Python imports
+- `.gitignore`-aware scanning with binary sniffing and per-file size caps
+- Agent skill (`skills/code2paper.md`) for terminal-based LLM agents

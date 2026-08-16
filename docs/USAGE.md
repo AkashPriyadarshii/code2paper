@@ -17,10 +17,13 @@ Step-by-step tutorial for using `code2paper` to turn any codebase into an academ
 Run `code2paper.py` pointing to any directory:
 
 ```bash
-# Basic run (generates paper.typ and compiles paper.pdf if typst is installed)
+# Basic run (writes paper.typ/tex/html/md to the current dir; compiles paper.pdf if typst is installed)
 python code2paper.py /path/to/repo
 
-# Custom output path
+# Write generated sources to a dedicated directory
+python code2paper.py /path/to/repo --out-dir build
+
+# Custom output PDF path
 python code2paper.py /path/to/repo -o build/my_paper.pdf
 
 # Keep intermediate Typst source file
@@ -34,7 +37,23 @@ python code2paper.py /path/to/repo --keep-typst
    /code2paper
    ```
 
+## Outputs
+
+| File | Format |
+| --- | --- |
+| `paper.typ` | Typst source (compiles to `paper.pdf`) |
+| `paper.tex` | LaTeX source |
+| `paper.html` | Interactive WebPaper (print to PDF from browser) |
+| `paper.md` | GitHub-Flavored Markdown |
+
+## What gets analyzed
+
+- Python modules: full AST analysis (functions, classes, imports, cyclomatic complexity).
+- Other languages: regex heuristics for functions/classes and control-flow complexity.
+- Internal dependency graph from Python imports.
+
 ## Troubleshooting
 
-- **PDF not compiling**: Verify `typst --version` works in your shell. If not installed, `code2paper` falls back to outputting `paper.typ` source.
-- **Large codebase truncation**: Ensure `repomix` is installed to enable smart AST pruning on huge repositories.
+- **PDF not compiling**: Verify `typst --version` works in your shell. If not installed, `code2paper` falls back to the HTML WebPaper (browser print-to-PDF) plus `paper.typ`/`paper.tex` sources.
+- **Large codebase truncation**: Files over 1MB are skipped automatically; install `repomix` for token-optimized context on huge repositories.
+- **Outputs inside the repo**: generated `paper.*` files are always excluded from analysis on subsequent runs.
