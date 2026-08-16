@@ -3,27 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>code2paper — Transform any codebase into an academic paper</title>
-  <meta name="description" content="Instant IEEE-style academic paper and Typst PDF generation from local repositories for FOSS devs and vibecoders.">
+
+  <!-- Primary Metadata -->
+  <title>code2paper — Convert Any Codebase Into an Academic Paper</title>
+  <meta name="title" content="code2paper — Convert Any Codebase Into an Academic Paper">
+  <meta name="description" content="Stdlib Python CLI and native Claude Code Agent Skill that transforms local codebases into formal IEEE-style paper specifications in Typst, PDF, and zero-CLI WebPaper HTML.">
+  <meta name="keywords" content="code2paper, code to paper, typst, paper2code, codebase to latex, codebase visualization, software architecture specification, repomix, claude code skill, developer tools">
+  <meta name="author" content="Akash Priyadarshi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://akashpriyadarshii.github.io/code2paper/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://akashpriyadarshii.github.io/code2paper/">
+  <meta property="og:title" content="code2paper — Convert Any Codebase Into an Academic Paper">
+  <meta property="og:description" content="Transform local repositories into formal IEEE-grade paper specifications in Typst, PDF, and WebPaper HTML. Zero heavy dependencies.">
+  <meta property="og:image" content="https://akashpriyadarshii.github.io/code2paper/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://akashpriyadarshii.github.io/code2paper/">
+  <meta property="twitter:title" content="code2paper — Convert Any Codebase Into an Academic Paper">
+  <meta property="twitter:description" content="Transform local repositories into formal IEEE-grade paper specifications in Typst, PDF, and WebPaper HTML. Zero heavy dependencies.">
+  <meta property="twitter:image" content="https://akashpriyadarshii.github.io/code2paper/og-image.png">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "code2paper",
+        "operatingSystem": "Cross-platform (Windows, macOS, Linux)",
+        "applicationCategory": "DeveloperApplication",
+        "programmingLanguage": "Python",
+        "downloadUrl": "https://github.com/AkashPriyadarshii/code2paper",
+        "author": {
+          "@type": "Person",
+          "name": "Akash Priyadarshi",
+          "url": "https://github.com/AkashPriyadarshii"
+        },
+        "description": "Convert local software repositories into formal academic-grade technical specifications in Typst, LaTeX, PDF, and WebPaper HTML."
+      },
+      {
+        "@type": "WebPage",
+        "url": "https://akashpriyadarshii.github.io/code2paper/",
+        "name": "code2paper Landing Page"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #090a0f;
-      --panel: #11131c;
-      --border: #222636;
-      --border-bright: #383f58;
-      --text: #e6e8ee;
-      --text-muted: #8b92a8;
+      --bg: #07090e;
+      --panel: #0f131f;
+      --panel-hover: #161b2c;
+      --border: #1e2438;
+      --border-bright: #384266;
+      --text: #f1f5f9;
+      --text-muted: #8e9bb4;
       --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.15);
-      --code-bg: #0d0e15;
-      --paper-bg: #fcfcfd;
-      --paper-text: #1a1a1a;
-      --paper-muted: #555555;
-      --paper-border: #e2e8f0;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --accent-glow: rgba(99, 102, 241, 0.18);
+      --emerald: #10b981;
+      --code-bg: #0a0c14;
+      --paper-bg: #ffffff;
+      --paper-text: #0f172a;
+      --font-sans: 'Inter', -apple-system, sans-serif;
       --font-serif: 'Newsreader', Georgia, serif;
       --font-mono: 'Fira Code', monospace;
     }
@@ -38,20 +91,20 @@
       overflow-x: hidden;
     }
 
-    .grid-bg {
+    .ambient-glow {
       position: absolute;
-      top: 0; left: 0; right: 0; height: 700px;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 70%);
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 600px;
+      background: radial-gradient(circle at center, var(--accent-glow) 0%, rgba(7,9,14,0) 70%);
       pointer-events: none;
       z-index: 0;
     }
 
     .container {
-      max-width: 1140px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0 24px;
       position: relative;
@@ -59,7 +112,7 @@
     }
 
     header {
-      padding: 24px 0;
+      padding: 28px 0;
       border-bottom: 1px solid var(--border);
     }
     nav {
@@ -70,77 +123,78 @@
     .logo {
       font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: -0.5px;
-      color: #fff;
+      font-size: 1.2rem;
+      color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
-    .logo span {
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 2px 6px;
+    .tag {
+      background: rgba(99, 102, 241, 0.2);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      font-size: 0.72rem;
+      padding: 2px 8px;
       border-radius: 4px;
+      font-family: var(--font-sans);
+      font-weight: 600;
     }
     .nav-links {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       align-items: center;
     }
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 500;
       transition: color 0.15s;
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: #ffffff; }
 
     .hero {
-      padding: 80px 0 60px;
+      padding: 90px 0 60px;
       text-align: center;
-      max-width: 840px;
+      max-width: 880px;
       margin: 0 auto;
     }
-    .hero-badge {
+    .pill-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 14px;
+      padding: 6px 18px;
       background: var(--panel);
       border: 1px solid var(--border-bright);
       border-radius: 100px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
-    .hero-badge strong { color: #fff; }
+    .pill-badge strong { color: #818cf8; }
 
     h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      font-size: clamp(2.7rem, 5.8vw, 4.5rem);
       font-weight: 600;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
       margin-bottom: 24px;
       color: #ffffff;
     }
     h1 em {
       font-style: italic;
-      color: #a5b4fc;
+      color: #818cf8;
     }
     .hero-desc {
-      font-size: 1.2rem;
+      font-size: 1.24rem;
       color: var(--text-muted);
-      margin-bottom: 36px;
-      font-weight: 400;
-      max-width: 680px;
+      margin-bottom: 40px;
+      max-width: 720px;
       margin-left: auto;
       margin-right: auto;
     }
-    .hero-cta {
+    .hero-buttons {
       display: flex;
       gap: 16px;
       justify-content: center;
@@ -150,17 +204,17 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       text-decoration: none;
       transition: all 0.15s;
       cursor: pointer;
     }
     .btn-primary {
-      background: #fff;
-      color: #000;
+      background: #ffffff;
+      color: #07090e;
     }
     .btn-primary:hover {
       background: #e2e8f0;
@@ -168,276 +222,363 @@
     }
     .btn-secondary {
       background: var(--panel);
-      color: #fff;
+      color: #ffffff;
       border: 1px solid var(--border-bright);
     }
     .btn-secondary:hover {
-      background: #1a1e2e;
-      border-color: #525b7a;
+      background: var(--panel-hover);
+      border-color: #4f5b85;
     }
 
-    .demo-section {
-      margin: 40px 0 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+    /* Interactive Output Showcase */
+    .showcase {
+      margin: 60px 0 90px;
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
     }
-    @media (max-width: 868px) {
-      .demo-section { grid-template-columns: 1fr; }
-    }
-
-    .demo-pane {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-    }
-    .demo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 16px;
-      margin-bottom: 16px;
+    .showcase-header {
+      background: #0b0e17;
+      padding: 16px 24px;
       border-bottom: 1px solid var(--border);
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .code-box {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #a5b4fc;
-      overflow-x: auto;
-      height: 100%;
-    }
-    .code-box .cmd { color: #5eead4; }
-    .code-box .comment { color: #64748b; }
-
-    .paper-preview {
-      background: var(--paper-bg);
-      color: var(--paper-text);
-      border-radius: 6px;
-      padding: 24px;
-      font-family: var(--font-serif);
-      font-size: 0.82rem;
-      line-height: 1.45;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      height: 100%;
-      border: 1px solid var(--paper-border);
-    }
-    .paper-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    .paper-author {
-      font-size: 0.75rem;
-      text-align: center;
-      color: var(--paper-muted);
-      margin-bottom: 16px;
-    }
-    .paper-abstract {
-      background: #f1f5f9;
-      padding: 10px;
-      border-radius: 4px;
-      font-size: 0.78rem;
-      margin-bottom: 16px;
-      border-left: 3px solid var(--accent);
-    }
-    .paper-heading {
-      font-weight: 600;
-      font-size: 0.88rem;
-      margin: 12px 0 6px;
-      color: #0f172a;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 2px;
-    }
-    .paper-math {
-      text-align: center;
-      font-family: var(--font-serif);
-      font-style: italic;
-      background: #f8fafc;
-      padding: 6px;
-      margin: 8px 0;
-      border-radius: 4px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 80px;
-    }
-    .feature-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 28px;
-      border-radius: 12px;
-      transition: border-color 0.15s;
-    }
-    .feature-card:hover { border-color: var(--border-bright); }
-    .feature-icon {
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-    }
-    .feature-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    .feature-desc {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-
-    .cta-box {
-      background: linear-gradient(180deg, var(--panel) 0%, rgba(17,19,28,0.5) 100%);
-      border: 1px solid var(--border-bright);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
-      margin-bottom: 80px;
-    }
-    .cta-box h2 {
-      font-family: var(--font-serif);
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 0.85rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn.active {
+      background: var(--border);
+      color: #ffffff;
+      border-color: var(--border-bright);
+    }
+
+    .showcase-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+    @media (max-width: 868px) {
+      .showcase-body { grid-template-columns: 1fr; }
+    }
+    .pane-left {
+      padding: 24px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .pane-right {
+      padding: 24px;
+      background: #0a0c14;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-box {
+      background: #05070a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: #a5b4fc;
+      height: 100%;
+      overflow-x: auto;
+    }
+    .terminal-box .cmt { color: #64748b; }
+    .terminal-box .cmd { color: #38bdf8; }
+    .terminal-box .out { color: var(--emerald); }
+
+    .preview-card {
+      background: var(--paper-bg);
+      color: var(--paper-text);
+      border-radius: 6px;
+      padding: 28px;
+      font-family: var(--font-serif);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      height: 100%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+      border: 1px solid #cbd5e1;
+    }
+    .paper-h1 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .paper-author {
+      font-size: 0.76rem;
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .paper-abstract-box {
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+    }
+    .paper-section {
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 4px;
+      margin: 14px 0 8px;
+      color: #0f172a;
+    }
+
+    /* Bento Feature Cards */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 90px;
+    }
+    .bento-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+    }
+    .bento-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .bento-card h3 {
+      font-size: 1.18rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .bento-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Quickstart CTA */
+    .cta-container {
+      background: linear-gradient(180deg, var(--panel) 0%, rgba(15,19,31,0.5) 100%);
+      border: 1px solid var(--border-bright);
+      border-radius: 16px;
+      padding: 60px 32px;
+      text-align: center;
+      margin-bottom: 90px;
+    }
+    .cta-container h2 {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .quick-cmd {
+      max-width: 580px;
+      margin: 28px auto 0;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #a5b4fc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
     footer a { color: var(--text-muted); text-decoration: none; }
-    footer a:hover { color: #fff; }
+    footer a:hover { color: #ffffff; }
   </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
+  <div class="ambient-glow"></div>
 
   <div class="container">
     <header>
       <nav>
-        <div class="logo">code2paper <span>v0.1.0</span></div>
+        <div class="logo">code2paper <span class="tag">v0.1.0</span></div>
         <div class="nav-links">
           <a href="https://github.com/AkashPriyadarshii/code2paper#readme">Docs</a>
-          <a href="https://github.com/AkashPriyadarshii/code2paper">GitHub</a>
+          <a href="https://github.com/Egonex-AI/Understand-Anything" target="_blank">Understand-Anything</a>
+          <a href="https://github.com/AkashPriyadarshii/code2paper" target="_blank">GitHub</a>
         </div>
       </nav>
     </header>
 
     <section class="hero">
-      <div class="hero-badge">
-        <strong>New</strong> Stdlib Python CLI & Native Claude Code Skill
+      <div class="pill-badge">
+        <strong>Python Stdlib CLI</strong> &bull; Claude Code Agent Skill
       </div>
       <h1>Turn any codebase into an <em>academic paper</em>.</h1>
       <p class="hero-desc">
-        Instant IEEE-style paper generation and PDF compilation from local repositories. Built for FOSS developers, AI research engineers, and vibecoders.
+        Automatically extract system topology, algorithm formalizations, and module specifications from local repositories. Generates Typst, LaTeX, PDF, and zero-CLI WebPaper HTML.
       </p>
-      <div class="hero-cta">
-        <a href="https://github.com/AkashPriyadarshii/code2paper" class="btn btn-primary">
+      <div class="hero-buttons">
+        <a href="https://github.com/AkashPriyadarshii/code2paper" class="btn btn-primary" target="_blank">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          Star on GitHub
+          View on GitHub
         </a>
         <a href="#quickstart" class="btn btn-secondary">Quick Start</a>
       </div>
     </section>
 
-    <section class="demo-section">
-      <div class="demo-pane">
-        <div class="demo-header">
-          <span>Terminal (Claude Code / Shell)</span>
-          <span>bash</span>
-        </div>
-        <div class="code-box">
-          <span class="comment"># Option 1: Direct Python CLI execution</span><br>
-          <span class="cmd">python code2paper.py . --keep-typst</span><br><br>
-          <span class="comment"># Option 2: Native Claude Code Agent Skill</span><br>
-          <span class="cmd">/code2paper</span><br><br>
-          <span class="comment"># Output</span><br>
-          [code2paper] Ingesting repository...<br>
-          [code2paper] Synthesizing paper.typ...<br>
-          [code2paper] Successfully compiled paper.pdf
+    <!-- Interactive Showcase -->
+    <section class="showcase">
+      <div class="showcase-header">
+        <span style="color: var(--text-muted); font-size: 0.88rem; font-weight: 500;">Live Output Formats</span>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="setTab('typst')">paper.typ</button>
+          <button class="tab-btn" onclick="setTab('html')">paper.html</button>
+          <button class="tab-btn" onclick="setTab('md')">paper.md</button>
         </div>
       </div>
-      <div class="demo-pane">
-        <div class="demo-header">
-          <span>Generated Academic Output</span>
-          <span>paper.pdf</span>
-        </div>
-        <div class="paper-preview">
-          <div class="paper-title">System Specification of MyProject</div>
-          <div class="paper-author">Automated Architectural Analysis</div>
-          <div class="paper-abstract">
-            <strong>Abstract</strong> — This paper formalizes the architectural topology, data transformation bounds, and execution flow of the target codebase.
+
+      <div class="showcase-body">
+        <div class="pane-left">
+          <div class="terminal-box">
+            <span class="cmt"># Execute code2paper CLI</span><br>
+            <span class="cmd">python code2paper.py . --keep-typst</span><br><br>
+            <span class="cmt"># Or trigger via Claude Code Agent Skill</span><br>
+            <span class="cmd">/code2paper</span><br><br>
+            <span class="out">[code2paper] Ingesting repository...</span><br>
+            <span class="out">[code2paper] Synthesizing Typst source...</span><br>
+            <span class="out">[code2paper] Emitting paper.html WebPaper...</span><br>
+            <span class="out">[code2paper] Done! Outputs ready.</span>
           </div>
-          <div class="paper-heading">1. System Overview</div>
-          <p>The system exhibits a modular pipeline architecture with isolated context boundaries...</p>
-          <div class="paper-heading">2. Mathematical Formalization</div>
-          <div class="paper-math">f(x) = Transform(x) where x ∈ D_codebase</div>
-          <div class="paper-heading">3. Module Specifications</div>
-          <p>• <code>core/engine.py</code>: Handles data transformation & state transitions.<br>
-          • <code>utils/parser.py</code>: Token-optimized context extraction.</p>
+        </div>
+
+        <div class="pane-right">
+          <div class="preview-card" id="previewContainer">
+            <div class="paper-h1">System Specification of MyProject</div>
+            <div class="paper-author">Automated Architectural Analysis</div>
+            <div class="paper-abstract-box">
+              <strong>Abstract</strong> — This document presents the system topology, component breakdown, and algorithmic formalization of the target codebase.
+            </div>
+            <div class="paper-section">1. Mathematical Formalization</div>
+            <p style="font-style: italic; text-align: center; margin: 8px 0; background: #f8fafc; padding: 6px;">
+              f(x) = Transform(x) where x ∈ D_codebase
+            </p>
+            <div class="paper-section">2. Component Modules</div>
+            <p>• <code>core/engine.py</code>: Process orchestration.<br>• <code>utils/pack.py</code>: Repomix AST bundling.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="features">
-      <div class="feature-card">
-        <div class="feature-icon">📦</div>
-        <div class="feature-title">Repomix Ingestion</div>
-        <div class="feature-desc">Bundles repository source and directory structure into token-optimized AST representations with gitignore awareness.</div>
+    <!-- Bento Features -->
+    <section class="bento-grid">
+      <div class="bento-card">
+        <div class="bento-icon">⚡</div>
+        <h3>Zero-Dependency Core</h3>
+        <p>Runs purely on Python standard library modules (`os`, `sys`, `subprocess`, `argparse`). No heavy package installs needed.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-title">Typst PDF Engine</div>
-        <div class="feature-desc">Compiles modern, clean academic PDFs in less than 1 second without requiring heavy local TeX Live installations.</div>
+
+      <div class="bento-card">
+        <div class="bento-icon">🌐</div>
+        <h3>Zero-CLI WebPaper HTML</h3>
+        <p>Auto-generates standalone MathJax-powered HTML papers. Print directly to PDF from any web browser without needing local CLI compilation tools.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <div class="feature-title">Claude Agent Skill</div>
-        <div class="feature-desc">Native agent skill protocol (`/code2paper`) that synthesizes equations, state machines, and module specs on the fly.</div>
+
+      <div class="bento-card">
+        <div class="bento-icon">🤖</div>
+        <h3>Claude Agent Skill</h3>
+        <p>Includes native `/code2paper` agent skill definition with automatic prompt level checks, mathematical formalization passes, and diagram generation.</p>
       </div>
     </section>
 
-    <section class="cta-box" id="quickstart">
+    <section class="cta-container" id="quickstart">
       <h2>Get Started in Seconds</h2>
-      <p style="color: var(--text-muted); margin-bottom: 24px;">Zero heavy dependencies. Pure Python standard library.</p>
-      <div class="code-box" style="max-width: 500px; margin: 0 auto; text-align: left;">
-        <span class="comment"># Clone and run</span><br>
-        git clone https://github.com/AkashPriyadarshii/code2paper.git<br>
-        cd code2paper<br>
-        python code2paper.py .
+      <p style="color: var(--text-muted);">Clone the repository and run the CLI directly.</p>
+
+      <div class="quick-cmd">
+        <code>git clone https://github.com/AkashPriyadarshii/code2paper.git && cd code2paper && python code2paper.py .</code>
       </div>
     </section>
 
     <footer>
-      <div>Released under the MIT License. Built by <a href="https://github.com/AkashPriyadarshii" target="_blank">Akash Priyadarshi</a>.</div>
+      <div>Released under MIT License. Created by <a href="https://github.com/AkashPriyadarshii" target="_blank">Akash Priyadarshi</a>.</div>
       <div>
-        <a href="https://github.com/AkashPriyadarshii/code2paper">GitHub</a> &bull;
-        <a href="https://github.com/Egonex-AI/Understand-Anything">Understand-Anything</a> &bull;
-        <a href="https://github.com/yamadashy/repomix">Repomix</a>
+        <a href="https://github.com/AkashPriyadarshii/code2paper" target="_blank">GitHub</a> &bull;
+        <a href="https://github.com/Egonex-AI/Understand-Anything" target="_blank">Understand-Anything</a> &bull;
+        <a href="https://github.com/yamadashy/repomix" target="_blank">Repomix</a>
       </div>
     </footer>
   </div>
+
+  <script>
+    function setTab(type) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const preview = document.getElementById('previewContainer');
+      if (type === 'typst') {
+        preview.innerHTML = `
+          <div class="paper-h1">System Specification of MyProject</div>
+          <div class="paper-author">Automated Architectural Analysis</div>
+          <div class="paper-abstract-box">
+            <strong>Abstract</strong> — Formal IEEE-style Typst specification generated from packed AST repository context.
+          </div>
+          <div class="paper-section">1. Mathematical Formalization (Typst)</div>
+          <p style="font-style: italic; text-align: center; margin: 8px 0; background: #f8fafc; padding: 6px;">
+            $ f(x) = \\text{Transform}(x) \\quad \\text{where } x \\in \\mathcal{D}_{\\text{codebase}} $
+          </p>
+        `;
+      } else if (type === 'html') {
+        preview.innerHTML = `
+          <div class="paper-h1">WebPaper Interactive Preview</div>
+          <div class="paper-author">Zero-CLI Browser PDF Export</div>
+          <div class="paper-abstract-box">
+            <strong>Abstract</strong> — Self-contained HTML format rendering MathJax equations and responsive typography for direct browser PDF printing (Ctrl+P).
+          </div>
+          <div class="paper-section">1. System Topology</div>
+          <p>Full component tree rendered natively in DOM with clean CSS reset.</p>
+        `;
+      } else if (type === 'md') {
+        preview.innerHTML = `
+          <div class="paper-h1">paper.md (Markdown Format)</div>
+          <div class="paper-author">GitHub Native Specification</div>
+          <div class="paper-abstract-box">
+            <strong>Abstract</strong> — Portable GitHub-flavored markdown specification for repository documentation and LLM context injection.
+          </div>
+          <div class="paper-section">1. Core Tables</div>
+          <p>Standard markdown tables and code fence formatting.</p>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
