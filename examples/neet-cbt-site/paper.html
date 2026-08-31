@@ -6,7 +6,7 @@
   <title>NEET CBT 2027 Simulator — Marketing Site: Academic Specification (WebPaper)</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
   <style>
-    :root { --bg:#f4f5f7; --paper:#ffffff; --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --accent:#e8582c; --node:#2563eb; --node-file:#0f172a; }
+    :root { --bg:#f4f5f7; --paper:#ffffff; --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --accent:#1d4ed8; --node:#2563eb; --node-file:#0f172a; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: Georgia, 'Times New Roman', serif; line-height: 1.65; padding: 40px 20px; }
     .paper { max-width: 900px; margin: 0 auto; background: var(--paper); padding: 56px 72px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border); }
@@ -250,7 +250,7 @@
           var hot = hover && (n.id === hover.id || adj[n.id].indexOf(hover.id) >= 0);
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r, 0, TAU);
-          ctx.fillStyle = hot ? '#e8582c' : n.color;
+          ctx.fillStyle = hot ? '#1d4ed8' : n.color;
           ctx.globalAlpha = hot ? 1 : 0.92;
           ctx.fill();
           ctx.globalAlpha = 1;
