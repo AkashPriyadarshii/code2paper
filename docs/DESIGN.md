@@ -32,21 +32,21 @@ no CLI, no install.
 
 ## Web Design System & Tokens
 - **Domain**: Academic & Scientific Research Publication.
-- **Palette**: Oxford Academic Navy / Deep Cobalt (`#1D4ED8`, `#2563EB`, Hue: 221.2°) on slate navy `#0F172A` / ivory paper `#F8FAFC`.
-  - `--bg`: `#0F172A`
-  - `--bg-deep`: `#0B1120`
-  - `--panel`: `#1E293B`
-  - `--panel-raised`: `#334155`
-  - `--line`: `#334155`
-  - `--paper`: `#F8FAFC`
-  - `--paper-deep`: `#F1F5F9`
-  - `--ink`: `#0F172A`
-  - `--ink-soft`: `#475569`
-  - `--accent`: `#1D4ED8`
-  - `--accent-strong`: `#2563EB`
-  - `--text`: `#F8FAFC`
-  - `--text-muted`: `#94A3B8`
-  - `--text-dim`: `#64748B`
+- **Palette**: Deep Editorial Oxblood / Burgundy (`#881337` / `#9F1239`, Hue: 341.0° - rich burgundy/crimson) on Ivory Journal Paper (`#FAFAF9` / `#1C1917`).
+  - `--bg`: `#1C1917`
+  - `--bg-deep`: `#0C0A09`
+  - `--panel`: `#292524`
+  - `--panel-raised`: `#44403C`
+  - `--line`: `#44403C`
+  - `--paper`: `#FAFAF9`
+  - `--paper-deep`: `#F5F5F4`
+  - `--ink`: `#1C1917`
+  - `--ink-soft`: `#57534E`
+  - `--accent`: `#881337`
+  - `--accent-strong`: `#9F1239`
+  - `--text`: `#FAFAF9`
+  - `--text-muted`: `#A8A29E`
+  - `--text-dim`: `#78716C`
 - **Typography**:
   - Display: `EB Garamond`, Georgia, serif
   - Body: `DM Sans`, -apple-system, sans-serif
