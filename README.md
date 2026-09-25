@@ -1,6 +1,8 @@
-*Fuel the next build:* [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/AkashPriyadarshi)
+*Fuel the next build:* 
 
 # code2paper
+
+**Support:** fuel the next build — [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/AkashPriyadarshi)
 
 > **The skill that understands ANY repository — for every developer.** Drop it into any AI agent (Claude Code, OpenCode, Codex, Gemini CLI, Cursor) and get a plain-language guide for beginners AND a formal academic paper for architects — grounded in the real code, never guessed.
 
